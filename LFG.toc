@@ -1,0 +1,44 @@
+##Interface:11200
+##Title: LFG
+##Notes: Looking for a group addon
+##SavedVariables: LFG_Settings
+##OptionalDeps:
+##Dependencies:
+LFG.lua
+
+## Configs
+Configs\Constants.lua
+
+## Libs
+Libs\Json\Json.lua
+Libs\Router\Router.lua
+Libs\Timer\Timer.lua
+
+## Utils
+Utils\EventUtils.lua
+Utils\GeneralUtils.lua
+Utils\MessageUtils.lua
+Utils\StringUtils.lua
+Utils\TableUtils.lua
+
+## Components
+Components\LFG_EventDropDown.lua
+Components\LFG_EventScrollFrames.lua
+Components\LFG_EventsSelectMenu.lua
+Components\LFG_Minimap_Icon.lua
+Components\LFG_QueueDropDown.lua
+Components\LFG_QueueScrollFrames.lua
+Components\LFG_RolePicker.lua
+Components\LFG_Tabs.lua
+
+## Controllers
+Ctrls\EventsCtrl.lua
+Ctrls\QueuesCtrl.lua
+
+## Actions
+Actions\EventActions.lua
+Actions\QueueActions.lua
+
+LFG_Incoming.lua
+LFG_Outgoing.lua
+LFG.xml
