@@ -39,15 +39,6 @@ function LFG.MinimapIcon:resetIcon()
 end
 
 function LFG.MinimapIcon:toggle()
-  --[[
-  self.Opened = not self.Opened;
-  if(self.Opened) then
-    LFGFrame:Show();
-  else
-    LFGFrame:Hide();
-  end
-  ]]--
-  
   if( LFGFrame:IsVisible() ) then
 		HideUIPanel(LFGFrame);
 	else

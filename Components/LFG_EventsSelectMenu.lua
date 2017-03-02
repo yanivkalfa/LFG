@@ -11,7 +11,7 @@ LFG.EventSelectMenu = {
 function LFG.EventSelectMenu:setCurrentPage(level)
   
   --LFG.EventSelectMenu.minEventLevel = LFG_Settings.character.faction == "Alliance" and 17 or 13;
-  self.currentPage = level or 6;--level or LFG_Settings.character.level;
+  self.currentPage = level or LFG_Settings.character.level;--level or LFG_Settings.character.level;
   self.first = self.currentPage <= 6 ;
   self.last = self.currentPage >= self.totalEvents - 6;
 end
@@ -48,7 +48,8 @@ function LFG.EventSelectMenu.setText(text)
 end
 
 function LFG.EventSelectMenu.OnClick()
-  local id = this:GetID(), Self, prevLevel, nextLevel, checkImage, text;
+  local id, Self, prevLevel, nextLevel, checkImage, text;
+  id = this:GetID();
   Self = LFG.EventSelectMenu;
   
   checkImage = getglobal("DropDownList1Button"..id.."Check");
@@ -78,7 +79,7 @@ function LFG.EventSelectMenu.OnClick()
 end
 
 function LFG.EventSelectMenu:renderMenuPage()
-  local info, startMenuPos, endMenuPos, event, eventName, faction, listFrameName;
+  local info, startMenuPos, endMenuPos, event, eventName, faction, listFrameName, button, normalText, width;
   faction = LFG_Settings.character.faction == "Alliance" and "A" or "H";
   startMenuPos = self.currentPage - 5;
   endMenuPos = self.currentPage + 5;
@@ -116,8 +117,8 @@ function LFG.EventSelectMenu:renderMenuPage()
     UIDropDownMenu_AddButton(info);
     
     
-    local button = getglobal(listFrameName.."Button"..i+2);
-    local normalText = getglobal(button:GetName().."NormalText");
+    button = getglobal(listFrameName.."Button"..i+2);
+    normalText = getglobal(button:GetName().."NormalText");
     width = normalText:GetWidth() + 60;
     if ( width > self.maxWidth ) then
       self.maxWidth = width;
@@ -211,7 +212,7 @@ end
 
 
 function LFG.EventSelectMenu.OnLoad()
-	UIDropDownMenu_Initialize(LFGEventSelectMenu, LFG.EventSelectMenu.Initialize);
+  UIDropDownMenu_Initialize(LFGEventSelectMenu, LFG.EventSelectMenu.Initialize);
   UIDropDownMenu_SetWidth(270);
   local text = getglobal(LFGEventSelectMenu:GetName().."Text");
   text:SetJustifyH("LEFT");

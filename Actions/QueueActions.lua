@@ -11,11 +11,10 @@ end
 function LFG.Actions.Queue.create(request)
 end
 
-function LFG.Actions.Queue.cancel(name, index)
-  local event = LFG.EventScrollFrames.eventList[index];
+function LFG.Actions.Queue.cancel(name, event)
   event.QTE = nil;
   -- send server cancel request
-  LFG.EventScrollFrames.LFGEventItemUpdateButton(name, index)
+  LFG.EventScrollFrames.LFGEventItemUpdateButton(name, event)
 end
 
 function LFG.Actions.Queue.acceptQueue(name, index)

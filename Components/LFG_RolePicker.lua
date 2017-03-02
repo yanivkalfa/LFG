@@ -1,10 +1,6 @@
---[[
-  fix bug where role selection is not saved
-  add a check that at least 1 role is selected
-]]--
 LFG.RolePicker = {
   name = "",
-  index = ""
+  event = nil
 };
 
 function LFG.RolePicker.reset()
@@ -48,9 +44,9 @@ function LFG.RolePicker.prepare()
     { name = "H", frame=LFGRoleHealCheckButtonFrame },
     { name = "D", frame=LFGRoleDPSCheckButtonFrame }
   };
-  local frames = {};
-  
-  local class = LFG.Constants.ROLE_FOR_CLASS_LIST[LFG_Settings.character.class], role;
+  local frames, class, role;
+  frames = {};
+  class = LFG.Constants.ROLE_FOR_CLASS_LIST[LFG_Settings.character.class];
   for i = 1, 3 do
     role = roles[i];
     role.frame:Hide();
@@ -80,16 +76,15 @@ end
 
 function LFG.RolePicker.signUp()
   local name = LFG.RolePicker.name;
-  local index = LFG.RolePicker.index;
-  local event = LFG.EventScrollFrames.eventList[index];
+  local event = LFG.RolePicker.event;
   local roles = LFG.RolePicker.getRoles();
   if( not event or not LFG.RolePicker.roleSelected(roles) ) then
     return false;
   end
   local noteToLeader = LFG.RolePicker.getNoteToLeader();
-  event.QTE = { expireAt = time() + 300, timer = Timer.setTimeout(299, LFG.Actions.Queue.cancel, { name, index } )};
+  event.QTE = { expireAt = time() + 300, timer = Timer.setTimeout(299, LFG.Actions.Queue.cancel, { name, event } )};
   -- send server cancel request
-  LFG.EventScrollFrames.LFGEventItemUpdateButton(name, index);
+  LFG.EventScrollFrames.LFGEventItemUpdateButton(name, event);
   
   LFGRolePicker:Hide();
 end
@@ -98,10 +93,9 @@ function LFG.RolePicker.cancel()
   LFGRolePicker:Hide();
 end
 
-function LFG.RolePicker.Show(name, index)
+function LFG.RolePicker.Show(name, event)
   LFG.RolePicker.name = name;
-  LFG.RolePicker.index = index;
-  local event = LFG.EventScrollFrames.eventList[index];
+  LFG.RolePicker.event = event;
   LFG.RolePicker.reset()
   LFG.RolePicker.prepare()
   LFGRolePicker:Show();

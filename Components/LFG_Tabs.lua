@@ -51,7 +51,7 @@ function LFG.Tabs.update()
     end
     
     LFG.EventSelectMenu.selected = LFG_Settings.event.QT;
-    text =  LFG.Constants.EVENT_LIST[LFG_Settings.event.QT].name;
+    local text =  LFG.Constants.EVENT_LIST[LFG_Settings.event.QT].name;
     LFG.EventSelectMenu.setText(text);
     LFGEventTitle:SetText(LFG_Settings.event.TT);
     LFGEventDescription:SetText(LFG_Settings.event.DC);
