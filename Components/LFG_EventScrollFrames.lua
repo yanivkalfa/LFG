@@ -2,19 +2,29 @@ LFG.EventScrollFrames = {
   eventSelected = { event = {}, name = '' },
   eventDropDownFocus = { event = {}, name = '' },
   eventList = {},
-  eventListBackup = nil,
   filter = nill,
   searchBouncer = nil,
   fatchedInitially = nil
 };
 
-function LFG.EventScrollFrames.LFGEventQueueToEvent(name, index)
-  
+function LFG.EventScrollFrames.resetSelection(event)
+
+  if( not event ) then
+    return false
+  end
+
+  if( LFG.EventScrollFrames.eventSelected.event.OR ==  event.OR) then
+    LFG.EventScrollFrames.eventSelected = { event = {}, name = '' }
+  end
+
+  if(LFG.EventScrollFrames.eventDropDownFocus.event.OR ==  event.OR) then
+    LFG.EventScrollFrames.eventDropDownFocus = { event = {}, name = '' };
+  end
+
+  LFG.EventScrollFrames.updateLFGEvent();
+
 end
 
-function LFG.EventScrollFrames.LFGEventUnQueueToEvent(name, index)
-  
-end
 
 
 function LFG.EventScrollFrames.LFGEventResetSelected()
@@ -170,7 +180,7 @@ function LFG.EventScrollFrames.updateLFGEvent()
       LFGEventItemButton.event = eventList[index];
       LFG.EventScrollFrames.LFGEventItemUpdateButton(LFGEventItemName, LFGEventItemButton.event);
     else
-      LFGEventItemButton.event = nil;
+      LFGEventItemButton.event = {};
       LFGEventItemButton:Hide();
     end
   end

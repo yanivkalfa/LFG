@@ -3,26 +3,6 @@ LFG.RolePicker = {
   event = nil
 };
 
-function LFG.RolePicker.reset()
-  LFGRolePickerNoteToLeader:SetText("");
-  LFGRoleTankCheckButton:SetChecked(false);
-  LFGRoleHealCheckButton:SetChecked(false);
-  LFGRoleDPSCheckButton:SetChecked(false);
-  
-  if(LFG_Settings.lastRoleSelected.T) then
-    DEFAULT_CHAT_FRAME:AddMessage("T");
-    LFGRoleTankCheckButton:SetChecked(true);
-  end
-  if(LFG_Settings.lastRoleSelected.H) then
-    DEFAULT_CHAT_FRAME:AddMessage("H");
-    LFGRoleHealCheckButton:SetChecked(true);
-  end
-  if(LFG_Settings.lastRoleSelected.D) then
-    DEFAULT_CHAT_FRAME:AddMessage("D");
-    LFGRoleDPSCheckButton:SetChecked(true);
-  end
-end
-
 function LFG.RolePicker.fixPresets(fames)
   local famesCount = table.getn(fames);
   
@@ -39,11 +19,13 @@ function LFG.RolePicker.fixPresets(fames)
 end
 
 function LFG.RolePicker.prepare()
+
   local roles = {
     { name = "T", frame=LFGRoleTankCheckButtonFrame },
     { name = "H", frame=LFGRoleHealCheckButtonFrame },
     { name = "D", frame=LFGRoleDPSCheckButtonFrame }
   };
+
   local frames, class, role;
   frames = {};
   class = LFG.Constants.ROLE_FOR_CLASS_LIST[LFG_Settings.character.class];
@@ -82,21 +64,46 @@ function LFG.RolePicker.signUp()
     return false;
   end
   local noteToLeader = LFG.RolePicker.getNoteToLeader();
-  event.QTE = { expireAt = time() + 300, timer = Timer.setTimeout(299, LFG.Actions.Queue.cancel, { name, event } )};
+  event.QTE = { expireAt = time() + 10, timer = Timer.setTimeout(10, LFG.Actions.Queue.cancel, { name, event, true } )};
   -- send server cancel request
   LFG.EventScrollFrames.LFGEventItemUpdateButton(name, event);
   
   LFGRolePicker:Hide();
 end
 
+function LFG.RolePicker.reset(event)
+  if ( event and LFG.RolePicker.event and LFG.RolePicker.event.OR == event.OR) then
+    LFG.RolePicker.cancel()
+  end
+end
+
 function LFG.RolePicker.cancel()
   LFGRolePicker:Hide();
+  LFG.RolePicker.name = "";
+  LFG.RolePicker.name = nil;
+  LFGRolePickerNoteToLeader:SetText("");
+  LFGRoleTankCheckButton:SetChecked(false);
+  LFGRoleHealCheckButton:SetChecked(false);
+  LFGRoleDPSCheckButton:SetChecked(false);
+
+  if(LFG_Settings.lastRoleSelected.T) then
+    DEFAULT_CHAT_FRAME:AddMessage("T");
+    LFGRoleTankCheckButton:SetChecked(true);
+  end
+  if(LFG_Settings.lastRoleSelected.H) then
+    DEFAULT_CHAT_FRAME:AddMessage("H");
+    LFGRoleHealCheckButton:SetChecked(true);
+  end
+  if(LFG_Settings.lastRoleSelected.D) then
+    DEFAULT_CHAT_FRAME:AddMessage("D");
+    LFGRoleDPSCheckButton:SetChecked(true);
+  end
 end
 
 function LFG.RolePicker.Show(name, event)
+  LFG.RolePicker.cancel()
   LFG.RolePicker.name = name;
   LFG.RolePicker.event = event;
-  LFG.RolePicker.reset()
   LFG.RolePicker.prepare()
   LFGRolePicker:Show();
 end

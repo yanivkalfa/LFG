@@ -1,15 +1,23 @@
 LFG.EventDropDownMenu = {};
 
 function LFG.EventDropDownMenu.OnClick()
-	local id = this:GetID();
+  local id = this:GetID();
   local name = LFG.EventScrollFrames.eventDropDownFocus.name;
   local event = LFG.EventScrollFrames.eventDropDownFocus.event;
-  
-	if ( id == 1 ) then
+
+  if ( not event ) then
+    return false
+  end
+
+  if ( event.hide ) then
+    return false
+  end
+
+  if ( id == 1 ) then
     if(this.arg1 == "signup") then
       LFG.RolePicker.Show(name, event);
-      
-    elseif(this.arg1 == "cancel") then 
+
+    elseif(this.arg1 == "cancel") then
       LFG.Actions.Queue.cancel(name, event);
     end
   end
