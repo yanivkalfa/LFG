@@ -2,18 +2,29 @@ LFG.EventScrollFrames = {
   eventSelected = { event = {}, name = '' },
   eventDropDownFocus = { event = {}, name = '' },
   eventList = {},
-  eventListBackup = nil,
+  filter = nill,
   searchBouncer = nil,
   fatchedInitially = nil
 };
 
-function LFG.EventScrollFrames.LFGEventQueueToEvent(name, index)
-  
+function LFG.EventScrollFrames.resetSelection(event)
+
+  if( not event ) then
+    return false
+  end
+
+  if( LFG.EventScrollFrames.eventSelected.event.OR ==  event.OR) then
+    LFG.EventScrollFrames.eventSelected = { event = {}, name = '' }
+  end
+
+  if(LFG.EventScrollFrames.eventDropDownFocus.event.OR ==  event.OR) then
+    LFG.EventScrollFrames.eventDropDownFocus = { event = {}, name = '' };
+  end
+
+  LFG.EventScrollFrames.updateLFGEvent();
+
 end
 
-function LFG.EventScrollFrames.LFGEventUnQueueToEvent(name, index)
-  
-end
 
 
 function LFG.EventScrollFrames.LFGEventResetSelected()
@@ -122,10 +133,38 @@ function LFG.EventScrollFrames.LFGEventItemUpdateButton(LFGEventItemName, event)
   LFGEventItemButton_EventMembersCount:SetText(event.PIE);
 end
 
+local function filter(index, value)
+  if (value.hide) then
+    return true;
+  end
+
+  local text = LFG.EventScrollFrames.filter;
+
+  if (not text) then
+    return false;
+  end
+
+  local title = strlower(value.TT);
+  local description = strlower(value.DC);
+  local queueTo = strlower(LFG.Constants.EVENT_LIST[value.QT].name);
+
+  local inTitle = string.find(title, text) or title == text;
+  local inDescription = string.find(description, text) or description == text;
+  local inQueueTo = string.find(queueTo, text) or queueTo == text;
+  local InLevel = string.find(value.ML, text) or value.ML == text;
+
+  --DEFAULT_CHAT_FRAME:AddMessage("inTitle, inDescription, inQueueTo, InLevel: "..tostring(inTitle)..", "..tostring(inDescription)..", "..tostring(inQueueTo)..", "..tostring(InLevel));
+  if(not inTitle and not inDescription and not inQueueTo and not InLevel ) then
+    return true;
+  end
+  return false;
+end
+
 function LFG.EventScrollFrames.updateLFGEvent()
   -- 1 through 5 of our window to scroll , an index into our data calculated from the scroll offset
-  local line, index, LFGEventItemButton, LFGEventItemName, totalResults;
-  totalResults = table.getn(LFG.EventScrollFrames.eventList);
+  local line, index, LFGEventItemButton, LFGEventItemName, totalResults, eventList;
+  eventList = table.filter(LFG.EventScrollFrames.eventList, filter);
+  totalResults = table.getn(eventList);
 
   -- hiding tooltips to avoid incorrect data
   GameTooltip:Hide();
@@ -138,10 +177,10 @@ function LFG.EventScrollFrames.updateLFGEvent()
 
     if (index <= totalResults) then
       LFGEventItemButton:Show();
-      LFGEventItemButton.event = LFG.EventScrollFrames.eventList[index];
+      LFGEventItemButton.event = eventList[index];
       LFG.EventScrollFrames.LFGEventItemUpdateButton(LFGEventItemName, LFGEventItemButton.event);
     else
-      LFGEventItemButton.event = nil;
+      LFGEventItemButton.event = {};
       LFGEventItemButton:Hide();
     end
   end

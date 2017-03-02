@@ -260,7 +260,7 @@
 					</Anchors>
 				</FontString>
         
-        <FontString name="$parentPendingText" inherits="GameFontHighlight" justifyH="LEFT" text="Pending - 4:38" hidden="true">
+        <FontString name="$parentPendingText" inherits="GameFontHighlight" justifyH="LEFT" hidden="true">
           <Color r="0.12" g="1" b="0.12"/>
 					<Size>
 						<AbsDimension x="90" y="15"/>

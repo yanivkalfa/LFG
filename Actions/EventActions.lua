@@ -13,43 +13,17 @@ function LFG.Actions.Event.search()
     return false;
   end
   
-  DEFAULT_CHAT_FRAME:AddMessage("text: "..text);
-  
   LFG.EventScrollFrames.searchBouncer = Timer.setTimeout(1, function()
-      DEFAULT_CHAT_FRAME:AddMessage("executing searchBouncer: ");
-      if ( type(LFG.EventScrollFrames.eventListBackup) == "table" ) then
-        LFG.EventScrollFrames.eventList = LFG.EventScrollFrames.eventListBackup;
-      end
-      LFG.EventScrollFrames.eventListBackup = LFG.EventScrollFrames.eventList;
-      LFG.EventScrollFrames.eventList = table.filter(LFG.EventScrollFrames.eventList, function(index, value)
-          DEFAULT_CHAT_FRAME:AddMessage("in filter: "..index);
-          local title = strlower(value.TT);
-          local description = strlower(value.DC);
-          local queueTo = strlower(LFG.Constants.EVENT_LIST[value.QT].name);
-          
-          local inTitle = string.find(title, text) or title == text;
-          local inDescription = string.find(description, text) or description == text;
-          local inQueueTo = string.find(queueTo, text) or queueTo == text;
-          local InLevel = string.find(value.ML, text) or value.ML == text;
-          
-          DEFAULT_CHAT_FRAME:AddMessage("inTitle, inDescription, inQueueTo, InLevel: "..tostring(inTitle)..", "..tostring(inDescription)..", "..tostring(inQueueTo)..", "..tostring(InLevel));
-          if(not inTitle and not inDescription and not inQueueTo and not InLevel ) then
-            return true;
-          end
-          return false;
-      end)
+      LFG.EventScrollFrames.filter = text;
       LFG.EventScrollFrames.updateLFGEvent();
+      Timer.clearTimer(LFG.EventScrollFrames.searchBouncer);
   end)
-  DEFAULT_CHAT_FRAME:AddMessage("LFG.EventScrollFrames.searchBouncer: "..LFG.EventScrollFrames.searchBouncer);
 end
 
 function LFG.Actions.Event.clearSearch()
-  if ( type(LFG.EventScrollFrames.eventListBackup) == "table" ) then
-    LFG.EventScrollFrames.eventList = LFG.EventScrollFrames.eventListBackup;
-    LFG.EventScrollFrames.eventListBackup = nil;
-    LFG.EventScrollFrames.updateLFGEvent();
-    LFGEventsViewSearch:SetText("");
-  end
+  LFG.EventScrollFrames.filter = nil;
+  LFG.EventScrollFrames.updateLFGEvent();
+  LFGEventsViewSearch:SetText("");
 end
 
 function LFG.Actions.Event.fetch()

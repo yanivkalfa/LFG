@@ -16,6 +16,9 @@ function LFG.Incoming.EDRQ(payload, sender, language, channelString, target, fla
     end);
   
     if (foundIndex >= 1) then
+      local event = LFG.EventScrollFrames.eventList[foundIndex];
+      LFG.EventScrollFrames.resetSelection(event);
+      LFG.RolePicker.reset(event);
       table.remove(LFG.EventScrollFrames.eventList, foundIndex);
       LFG.EventScrollFrames.updateLFGEvent();
       -- update queue status for the "searching eye"
