@@ -294,7 +294,7 @@
           <OnClick>
             local parent = this:GetParent();
             local parentName = parent:GetName();
-            LFG.Actions.Queue.cancel(parentName, parent.eventIndex);
+            LFG.Actions.Queue.cancel(parentName, parent.event);
           </OnClick>
         </Scripts>
         <NormalTexture file="Interface\Buttons\CancelButton-Up"/>
@@ -313,12 +313,11 @@
         this.time = 0;
 				this:RegisterForClicks("LeftButtonUp","RightButtonUp");
 			</OnLoad>
-      <OnUpdate> 
+      <OnUpdate>
         this.time = this.time + arg1;
         if( this.time >= 1) then
           local name = this:GetName();
-          local index = this.eventIndex;
-          local event = LFG.EventScrollFrames.eventList[index];
+          local event = this.event;
           if(event.QTE) then
             local remining = event.QTE.expireAt - time();
             if(remining > 0) then
@@ -714,8 +713,8 @@
             </Anchors>
             <Scripts>
               <OnClick>
-                if(LFG.EventScrollFrames.eventSelected.index >= 1) then
-                  LFG.RolePicker.Show(LFG.EventScrollFrames.eventSelected.name, LFG.EventScrollFrames.eventSelected.index);
+                if(LFG.EventScrollFrames.eventSelected.event.OR) then
+                  LFG.RolePicker.Show(LFG.EventScrollFrames.eventSelected.name, LFG.EventScrollFrames.eventSelected.event);
                 end
               </OnClick>
             </Scripts>
