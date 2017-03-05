@@ -25,11 +25,13 @@ Utils\TableUtils.lua
 Components\LFG_EventDropDown.lua
 Components\LFG_EventScrollFrames.lua
 Components\LFG_EventsSelectMenu.lua
+Components\LFG_Friend.lua
 Components\LFG_Minimap_Icon.lua
 Components\LFG_QueueDropDown.lua
 Components\LFG_QueueScrollFrames.lua
 Components\LFG_RolePicker.lua
 Components\LFG_Tabs.lua
+Components\LFG_Whisper.lua
 
 ## Controllers
 Ctrls\EventsCtrl.lua

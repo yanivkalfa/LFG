@@ -1,68 +1,68 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 	..\FrameXML\UI.xsd">
-  
+
   <Button name="LFG_MinimapButton" parent="Minimap" enableMouse="true" movable="true" hidden="false">
-		<Size>
-			<AbsDimension x="33" y="33"/>
-		</Size>
-		<Anchors>
-			<Anchor point="TOPLEFT"/>
-		</Anchors>
-		<Layers>
-			<Layer level="BACKGROUND">
-				<Texture name="LFG_MinimapButton_Icon" file="Interface\AddOns\LFG\Icons\frames\BattlenetWorking0">
-					<Size>
-						<AbsDimension x="32" y="32"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="0" y="0"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</Texture>
-			</Layer>
-			<Layer level="OVERLAY">
-				<Texture file="Interface\Minimap\MiniMap-TrackingBorder">
-					<Size>
-						<AbsDimension x="56" y="56"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOPLEFT"/>
-					</Anchors>
-				</Texture>
-			</Layer>
-		</Layers>
-		<Frames>
-			<Frame name="LFG_MinimapButton_DraggingFrame" hidden="true">
-				<Scripts>
-					<OnUpdate>
+    <Size>
+      <AbsDimension x="33" y="33"/>
+    </Size>
+    <Anchors>
+      <Anchor point="TOPLEFT"/>
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture name="LFG_MinimapButton_Icon" file="Interface\AddOns\LFG\Icons\frames\BattlenetWorking0">
+          <Size>
+            <AbsDimension x="32" y="32"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT">
+              <Offset>
+                <AbsDimension x="0" y="0"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </Texture>
+      </Layer>
+      <Layer level="OVERLAY">
+        <Texture file="Interface\Minimap\MiniMap-TrackingBorder">
+          <Size>
+            <AbsDimension x="56" y="56"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Frame name="LFG_MinimapButton_DraggingFrame" hidden="true">
+        <Scripts>
+          <OnUpdate>
             LFG.MinimapIcon.OnUpdate();
-					</OnUpdate>
-				</Scripts>
-			</Frame>
-		</Frames>
-		<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-		<Scripts>
-			<OnLoad>
-				this:RegisterForClicks("LeftButtonUp","RightButtonUp");
-				this:RegisterForDrag("LeftButton","RightButton");
-			</OnLoad>
-			<OnDragStart>
-				this:LockHighlight();
-				LFG_MinimapButton_DraggingFrame:Show();
-			</OnDragStart>
-			<OnDragStop>
-				this:UnlockHighlight();
-				LFG_MinimapButton_DraggingFrame:Hide();
-			</OnDragStop>
-			<OnClick>
+          </OnUpdate>
+        </Scripts>
+      </Frame>
+    </Frames>
+    <HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+    <Scripts>
+      <OnLoad>
+        this:RegisterForClicks("LeftButtonUp","RightButtonUp");
+        this:RegisterForDrag("LeftButton","RightButton");
+      </OnLoad>
+      <OnDragStart>
+        this:LockHighlight();
+        LFG_MinimapButton_DraggingFrame:Show();
+      </OnDragStart>
+      <OnDragStop>
+        this:UnlockHighlight();
+        LFG_MinimapButton_DraggingFrame:Hide();
+      </OnDragStop>
+      <OnClick>
         LFG.MinimapIcon:toggle();
-			</OnClick>
-		</Scripts>
-	</Button>
-  
+      </OnClick>
+    </Scripts>
+  </Button>
+
   <EditBox name="LFGEditBoxTemplate" virtual="true">
     <Size>
       <AbsDimension x="250" y="50"/>
@@ -206,11 +206,11 @@
     </Layers>
     <FontString inherits="ChatFontNormal"/>
   </EditBox>
-  
+
   <Button name="LFGEventItemButtonTemplate" virtual="true">
-		<Size>
-			<AbsDimension x="296" y="34"/>
-		</Size>
+    <Size>
+      <AbsDimension x="296" y="34"/>
+    </Size>
     <Layers>
       <Layer level="BACKGROUND" >
         <Texture name="$parentPendingTexture" file="Interface\AddOns\LFG\Icons\PendingFriendNameBG-New" alphaMode="ADD" hidden="true">
@@ -220,61 +220,61 @@
           </Anchors>
         </Texture>
       </Layer>
-			<Layer level="ARTWORK">
-				<FontString name="$parentTitle" inherits="GameFontNormal" justifyH="LEFT">
-					<Size>
-						<AbsDimension x="175" y="16"/>
-					</Size>
-					<Anchors>
+      <Layer level="ARTWORK">
+        <FontString name="$parentTitle" inherits="GameFontNormal" justifyH="LEFT">
+          <Size>
+            <AbsDimension x="175" y="16"/>
+          </Size>
+          <Anchors>
             <Anchor point="TOPLEFT">
               <Offset>
                 <AbsDimension x="5" y="-2"/>
               </Offset>
             </Anchor>
-          </Anchors> 
-				</FontString>
-        
+          </Anchors>
+        </FontString>
+
         <FontString name="$parentQueueTo" inherits="GameFontHighlight" justifyH="LEFT" text="0">
-					<Size>
-						<AbsDimension x="250" y="12"/>
-					</Size>
-					<Anchors>
+          <Size>
+            <AbsDimension x="250" y="12"/>
+          </Size>
+          <Anchors>
             <Anchor point="LEFT">
               <Offset>
                 <AbsDimension x="5" y="-8"/>
               </Offset>
             </Anchor>
-          </Anchors> 
-				</FontString>
-        
+          </Anchors>
+        </FontString>
+
         <FontString name="$parentEventMembersCount" inherits="GameFontHighlight" justifyH="LEFT">
-					<Size>
-						<AbsDimension x="15" y="15"/>
-					</Size>
-					<Anchors>
-						<Anchor point="LEFT">
-							<Offset>
-								<AbsDimension x="265" y="0"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
-        
+          <Size>
+            <AbsDimension x="15" y="15"/>
+          </Size>
+          <Anchors>
+            <Anchor point="LEFT">
+              <Offset>
+                <AbsDimension x="265" y="0"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+
         <FontString name="$parentPendingText" inherits="GameFontHighlight" justifyH="LEFT" hidden="true">
           <Color r="0.12" g="1" b="0.12"/>
-					<Size>
-						<AbsDimension x="90" y="15"/>
-					</Size>
-					<Anchors>
-						<Anchor point="LEFT">
-							<Offset>
-								<AbsDimension x="170" y="0"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
-			</Layer>
-		</Layers>
+          <Size>
+            <AbsDimension x="90" y="15"/>
+          </Size>
+          <Anchors>
+            <Anchor point="LEFT">
+              <Offset>
+                <AbsDimension x="170" y="0"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
     <Frames>
       <Button name="$parentPendingCancel" toplevel="true" hidden="true">
         <Size>
@@ -311,8 +311,8 @@
       </OnShow>
       <OnLoad>
         this.time = 0;
-				this:RegisterForClicks("LeftButtonUp","RightButtonUp");
-			</OnLoad>
+        this:RegisterForClicks("LeftButtonUp","RightButtonUp");
+      </OnLoad>
       <OnUpdate>
         this.time = this.time + arg1;
         if( this.time >= 1) then
@@ -327,38 +327,38 @@
           this.time  = 0;
         end
       </OnUpdate>
-			<OnClick>
+      <OnClick>
         LFG.EventScrollFrames.LFGEventOnClick(arg1)
-			</OnClick>
+      </OnClick>
       <OnEnter>
         LFG.EventScrollFrames.LFGEventOnEnter()
       </OnEnter>
       <OnLeave>
-        GameTooltip:Hide();						
+        GameTooltip:Hide();
       </OnLeave>
-		</Scripts>
-	</Button>
-  
+    </Scripts>
+  </Button>
+
   <Button name="LFGQueueItemButtonTemplate" virtual="true">
-		<Size>
-			<AbsDimension x="296" y="25"/>
-		</Size>
+    <Size>
+      <AbsDimension x="296" y="25"/>
+    </Size>
     <Layers>
-			<Layer level="ARTWORK">
-				<FontString name="$parentName" inherits="GameFontNormal" justifyH="LEFT">
-					<Size>
-						<AbsDimension x="175" y="16"/>
-					</Size>
-					<Anchors>
+      <Layer level="ARTWORK">
+        <FontString name="$parentName" inherits="GameFontNormal" justifyH="LEFT">
+          <Size>
+            <AbsDimension x="175" y="16"/>
+          </Size>
+          <Anchors>
             <Anchor point="LEFT"/>
-          </Anchors> 
-				</FontString>
-        
-        <Texture name="$parentTanksCountTexture_PIQ" file="Interface\AddOns\LFG\Icons\UI-LFG-ICON-PORTRAITROLES">
-					<Size>
-						<AbsDimension x="15" y="15"/>
-					</Size>
-					<Anchors>
+          </Anchors>
+        </FontString>
+
+        <Texture name="$parentTanksTexture" file="Interface\AddOns\LFG\Icons\UI-LFG-ICON-PORTRAITROLES">
+          <Size>
+            <AbsDimension x="15" y="15"/>
+          </Size>
+          <Anchors>
             <Anchor point="LEFT">
               <Offset>
                 <AbsDimension x="120" y="0"/>
@@ -366,13 +366,13 @@
             </Anchor>
           </Anchors>
           <TexCoords left="0" right="0.28" top="0.34" bottom="0.62"/>
-				</Texture>
-        
-        <Texture name="$parentHealersCountTexure_PIQ" file="Interface\AddOns\LFG\Icons\UI-LFG-ICON-PORTRAITROLES">
-					<Size>
-						<AbsDimension x="15" y="15"/>
-					</Size>
-					<Anchors>
+        </Texture>
+
+        <Texture name="$parentHealersTexture" file="Interface\AddOns\LFG\Icons\UI-LFG-ICON-PORTRAITROLES">
+          <Size>
+            <AbsDimension x="15" y="15"/>
+          </Size>
+          <Anchors>
             <Anchor point="LEFT">
               <Offset>
                 <AbsDimension x="140" y="0"/>
@@ -380,13 +380,13 @@
             </Anchor>
           </Anchors>
           <TexCoords left="0.32" right="0.60" top="0.02" bottom="0.30"/>
-				</Texture>
-        
-        <Texture name="$parentDPSCountTexture_PIQ" file="Interface\AddOns\LFG\Icons\UI-LFG-ICON-PORTRAITROLES">
-					<Size>
-						<AbsDimension x="15" y="15"/>
-					</Size>
-					<Anchors>
+        </Texture>
+
+        <Texture name="$parentDPSTexture" file="Interface\AddOns\LFG\Icons\UI-LFG-ICON-PORTRAITROLES">
+          <Size>
+            <AbsDimension x="15" y="15"/>
+          </Size>
+          <Anchors>
             <Anchor point="LEFT">
               <Offset>
                 <AbsDimension x="160" y="0"/>
@@ -394,23 +394,23 @@
             </Anchor>
           </Anchors>
           <TexCoords left="0.32" right="0.60" top="0.34" bottom="0.62"/>
-				</Texture>
-        
+        </Texture>
+
         <FontString name="$parentInviteQueueText" inherits="GameFontHighlight" justifyH="LEFT" text="Invited" hidden="true">
           <Color r="0.12" g="1" b="0.12"/>
-					<Size>
-						<AbsDimension x="65" y="16"/>
-					</Size>
-					<Anchors>
+          <Size>
+            <AbsDimension x="65" y="16"/>
+          </Size>
+          <Anchors>
             <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT">
               <Offset>
                 <AbsDimension x="-20" y="1"/>
               </Offset>
             </Anchor>
-          </Anchors> 
-				</FontString>
-			</Layer>
-		</Layers>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
     <Frames>
       <Button name="$parentInviteQueue" toplevel="true" inherits="UIPanelButtonTemplate" text="Invite">
         <Size>
@@ -449,7 +449,12 @@
           <OnClick>
             local parent = this:GetParent();
             local parentName = parent:GetName();
-            LFG.Actions.Queue.declineQueue(parentName, parent.queueIndex);
+            local queue = LFG.QueueScrollFrames.queueList[parent.queueIndex];
+
+            if (parent.queueIndex >= 1) then
+              LFG.Actions.Queue.delete(parent.queueIndex);
+              LFG.Outgoing:send(LFG.Constants.EVENTS.Q_DECLINE, queue.OR, {});
+            end
           </OnClick>
         </Scripts>
         <NormalTexture file="Interface\Buttons\CancelButton-Up"/>
@@ -462,36 +467,36 @@
     <HighlightTexture file="Interface\AddOns\LFG\Icons\UI-FriendsFrame-HighlightBar-Blue" alphaMode="ADD"/>
     <Scripts>
       <OnLoad>
-				this:RegisterForClicks("LeftButtonUp","RightButtonUp");
-			</OnLoad>
-			<OnClick>
+        this:RegisterForClicks("LeftButtonUp","RightButtonUp");
+      </OnLoad>
+      <OnClick>
         LFG.QueueScrollFrames.LFGQueueOnClick(arg1)
-			</OnClick>
+      </OnClick>
       <OnEnter>
         LFG.QueueScrollFrames.LFGQueueOnEnter()
       </OnEnter>
       <OnLeave>
-        GameTooltip:Hide();						
+        GameTooltip:Hide();
       </OnLeave>
-		</Scripts>
-	</Button>
-  
+    </Scripts>
+  </Button>
+
   <Frame name="LFGFrame" toplevel="true" enableMouse="true" movable="true" parent="UIParent" hidden="true">
-		<Size>
-			<AbsDimension x="384" y="512"/>
-		</Size>
-		<Anchors>
- 			<Anchor point="TOPLEFT">
- 				<Offset>
- 					<AbsDimension x="0" y="-104"/>
- 				</Offset>
- 			</Anchor>
- 		</Anchors>
-		<HitRectInsets>
-			<AbsInset left="0" right="35" top="0" bottom="75"/>
-		</HitRectInsets>
-		<Layers>
-			<Layer level="BACKGROUND">
+    <Size>
+      <AbsDimension x="384" y="512"/>
+    </Size>
+    <Anchors>
+      <Anchor point="TOPLEFT">
+        <Offset>
+          <AbsDimension x="0" y="-104"/>
+        </Offset>
+      </Anchor>
+    </Anchors>
+    <HitRectInsets>
+      <AbsInset left="0" right="35" top="0" bottom="75"/>
+    </HitRectInsets>
+    <Layers>
+      <Layer level="BACKGROUND">
         <Texture name="LFGFramePortrait" file="Interface\AddOns\LFG\Icons\UI-LFG-PORTRAIT">
           <Size>
             <AbsDimension x="58" y="58"/>
@@ -505,115 +510,229 @@
           </Anchors>
         </Texture>
       </Layer>
-			<Layer level="ARTWORK">
+      <Layer level="ARTWORK">
         <Texture name="LFGQueueFrameTexture" hidden="true" toplevel="true" file="Interface\AddOns\LFG\Icons\UI-LFR-FRAME-MAIN">
-        <Size>
-          <AbsDimension x="384" y="512"/>
-        </Size>
-					<Anchors>
-						<Anchor point="TOPLEFT"/>
-					</Anchors>
+          <Size>
+            <AbsDimension x="384" y="512"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT"/>
+          </Anchors>
           <TexCoords left="0.008" right="0.758" top="0" bottom="1"/>
-				</Texture>
-				<Texture name="LFGFrameTopLeft" file="Interface\TaxiFrame\UI-TaxiFrame-TopLeft">
-					<Size>
-						<AbsDimension x="256" y="256"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOPLEFT"/>
-					</Anchors>
-				</Texture>
-				<Texture name="LFGFrameTopRight" file="Interface\TaxiFrame\UI-TaxiFrame-TopRight">
-					<Size>
-						<AbsDimension x="128" y="256"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="256" y="0"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</Texture>
-				<Texture name="LFGFrameBotLeft" file="Interface\TaxiFrame\UI-TaxiFrame-BotLeft">
-					<Size>
-						<AbsDimension x="256" y="256"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="0" y="-256"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</Texture>
-				<Texture name="LFGFrameBotRight" file="Interface\TaxiFrame\UI-TaxiFrame-BotRight">
-					<Size>
-						<AbsDimension x="128" y="256"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="256" y="-256"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</Texture>
+        </Texture>
+        <Texture name="LFGFrameTopLeft" file="Interface\TaxiFrame\UI-TaxiFrame-TopLeft">
+          <Size>
+            <AbsDimension x="256" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT"/>
+          </Anchors>
+        </Texture>
+        <Texture name="LFGFrameTopRight" file="Interface\TaxiFrame\UI-TaxiFrame-TopRight">
+          <Size>
+            <AbsDimension x="128" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT">
+              <Offset>
+                <AbsDimension x="256" y="0"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </Texture>
+        <Texture name="LFGFrameBotLeft" file="Interface\TaxiFrame\UI-TaxiFrame-BotLeft">
+          <Size>
+            <AbsDimension x="256" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT">
+              <Offset>
+                <AbsDimension x="0" y="-256"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </Texture>
+        <Texture name="LFGFrameBotRight" file="Interface\TaxiFrame\UI-TaxiFrame-BotRight">
+          <Size>
+            <AbsDimension x="128" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT">
+              <Offset>
+                <AbsDimension x="256" y="-256"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </Texture>
         <Texture file="Interface\Spellbook\SpellBook-SkillLineTab">
-					<Size>
-						<AbsDimension x="90" y="90"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="347" y="-75"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</Texture>
+          <Size>
+            <AbsDimension x="90" y="90"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT">
+              <Offset>
+                <AbsDimension x="347" y="-75"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </Texture>
         <Texture file="Interface\Spellbook\SpellBook-SkillLineTab">
-					<Size>
-						<AbsDimension x="90" y="90"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="347" y="-150"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</Texture>
-				<FontString name="LFGCTitleText" inherits="GameFontHighlight" text="LFG - Custom Events">
-					<Size>
-						<AbsDimension x="300" y="14"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOP" relativeTo="LFGFrame" relativePoint="TOP">
-							<Offset>
-								<AbsDimension x="0" y="-15"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
-			</Layer>
-		</Layers>
-		<Frames>
-			<Button name="LFGFrameCloseButton" inherits="UIPanelCloseButton">
-				<Anchors>
-					<Anchor point="TOPRIGHT" relativeTo="LFGFrame" relativePoint="TOPRIGHT">
-						<Offset>
-							<AbsDimension x="-29" y="-8"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
+          <Size>
+            <AbsDimension x="90" y="90"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT">
+              <Offset>
+                <AbsDimension x="347" y="-150"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </Texture>
+        <FontString name="LFGCTitleText" inherits="GameFontHighlight" text="LFG - Custom Events">
+          <Size>
+            <AbsDimension x="300" y="14"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOP" relativeTo="LFGFrame" relativePoint="TOP">
+              <Offset>
+                <AbsDimension x="0" y="-15"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+
+      <Frame name="LFGWhisper" toplevel="true" hidden="true">
+        <Size>
+          <AbsDimension x="500" y="40"/>
+        </Size>
+        <Anchors>
+          <Anchor point="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="7" y="33"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+          <BackgroundInsets>
+            <AbsInset left="4" right="4" top="4" bottom="4" />
+          </BackgroundInsets>
+          <TileSize>
+            <AbsValue val="16" />
+          </TileSize>
+          <EdgeSize>
+            <AbsValue val="16" />
+          </EdgeSize>
+        </Backdrop>
+        <Frames>
+          <EditBox name="LFGWhisperEditBox" inherits="LFGEditBoxTemplate"  autoFocus="true" letters="200">
+            <Size>
+              <AbsDimension x="380" y="22"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="LFGWhisper">
+                <Offset>
+                  <AbsDimension x="10" y="-9"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <TextInsets>
+              <AbsInset left="10" right="10" top="10" bottom="20"/>
+            </TextInsets>
+            <Scripts>
+              <OnEscapePressed>
+                LFG.Whisper.cancel();
+              </OnEscapePressed>
+              <OnEnterPressed>
+                LFG.Whisper.send();
+              </OnEnterPressed>
+            </Scripts>
+          </EditBox>
+          <Button name="LFGWhisperSend" inherits="UIPanelButtonTemplate" text="Send">
+            <Size>
+              <AbsDimension x="70" y="22"/>
+            </Size>
+            <Anchors>
+              <Anchor point="LEFT" relativeTo="LFGWhisperEditBox" relativePoint="RIGHT">
+                <Offset>
+                  <AbsDimension x="10" y="0"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Scripts>
+              <OnClick>
+                LFG.Whisper.send();
+              </OnClick>
+            </Scripts>
+          </Button>
+          <Button name="LFGWhisperCancel">
+            <Size>
+              <AbsDimension x="33" y="33"/>
+            </Size>
+            <HitRectInsets>
+              <AbsInset left="9" right="7" top="-7" bottom="10"/>
+            </HitRectInsets>
+            <Anchors>
+              <Anchor point="LEFT" relativeTo="LFGWhisperSend" relativePoint="RIGHT">
+                <Offset>
+                  <AbsDimension x="-5" y="-1"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Scripts>
+              <OnClick>
+                LFG.Whisper.cancel();
+              </OnClick>
+            </Scripts>
+            <NormalTexture file="Interface\Buttons\CancelButton-Up"/>
+            <PushedTexture file="Interface\Buttons\CancelButton-Down"/>
+            <HighlightTexture file="Interface\Buttons\CancelButton-Highlight" alphaMode="ADD"/>
+          </Button>
+        </Frames>
+      </Frame>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <Button name="LFGFrameCloseButton" inherits="UIPanelCloseButton">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeTo="LFGFrame" relativePoint="TOPRIGHT">
+            <Offset>
+              <AbsDimension x="-29" y="-8"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
         <Scripts>
-					<OnClick>
-						LFG.MinimapIcon:toggle();
-					</OnClick>
-				</Scripts>
-			</Button>
+          <OnClick>
+            LFG.MinimapIcon:toggle();
+          </OnClick>
+        </Scripts>
+      </Button>
       <Button name="LFGFrameEvent">
-				<Size>
+        <Size>
           <AbsDimension x="40" y="42"/>
         </Size>
         <Anchors>
@@ -624,26 +743,26 @@
           </Anchor>
         </Anchors>
         <Scripts>
-					<OnClick>
+          <OnClick>
             if(string.find(LFG.Tabs.active, "event")) then
               return false
             end
             LFG.Tabs.select("events.view");
-					</OnClick>
-					<OnEnter>
-						GameTooltip:SetOwner(this, "ANCHOR_RIGHT");
-						GameTooltip:SetText("Custom");
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();						
-					</OnLeave>
-				</Scripts>
+          </OnClick>
+          <OnEnter>
+            GameTooltip:SetOwner(this, "ANCHOR_RIGHT");
+            GameTooltip:SetText("Custom");
+          </OnEnter>
+          <OnLeave>
+            GameTooltip:Hide();
+          </OnLeave>
+        </Scripts>
         <NormalTexture file="Interface\AddOns\LFG\Icons\LFGICON-MOLTENCORE"/>
-				<PushedTexture file="Interface\AddOns\LFG\Icons\LFGICON-MOLTENCORE-PUSHED"/>
-				<HighlightTexture file="Interface\AddOns\LFG\Icons\LFGICON-MOLTENCORE-HIGHLIGHT" alphaMode="ADD"/>
-			</Button>
+        <PushedTexture file="Interface\AddOns\LFG\Icons\LFGICON-MOLTENCORE-PUSHED"/>
+        <HighlightTexture file="Interface\AddOns\LFG\Icons\LFGICON-MOLTENCORE-HIGHLIGHT" alphaMode="ADD"/>
+      </Button>
       <Button name="LFGFrameQueue">
-				<Size>
+        <Size>
           <AbsDimension x="40" y="42"/>
         </Size>
         <Anchors>
@@ -654,32 +773,32 @@
           </Anchor>
         </Anchors>
         <Scripts>
-					<OnClick>
+          <OnClick>
             if(string.find(LFG.Tabs.active, "queue")) then
               return false
             end
             LFG.Tabs.select("queue");
-					</OnClick>
-					<OnEnter>
-						GameTooltip:SetOwner(this, "ANCHOR_RIGHT");
-						GameTooltip:SetText("Dungeons");
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();						
-					</OnLeave>
-				</Scripts>
+          </OnClick>
+          <OnEnter>
+            GameTooltip:SetOwner(this, "ANCHOR_RIGHT");
+            GameTooltip:SetText("Dungeons");
+          </OnEnter>
+          <OnLeave>
+            GameTooltip:Hide();
+          </OnLeave>
+        </Scripts>
         <NormalTexture file="Interface\AddOns\LFG\Icons\LFGICON-DEADMINES"/>
-				<PushedTexture file="Interface\AddOns\LFG\Icons\LFGICON-DEADMINES-PUSHED"/>
-				<HighlightTexture file="Interface\AddOns\LFG\Icons\LFGICON-DEADMINES-HIGHLIGHT" alphaMode="ADD"/>
-			</Button>
-      
+        <PushedTexture file="Interface\AddOns\LFG\Icons\LFGICON-DEADMINES-PUSHED"/>
+        <HighlightTexture file="Interface\AddOns\LFG\Icons\LFGICON-DEADMINES-HIGHLIGHT" alphaMode="ADD"/>
+      </Button>
+
       <Frame name="LFGEventsView_Tab" enableMouse="true" movable="false" parent="LFGFrame" hidden="true">
         <Anchors>
           <Anchor point="TOPLEFT">
-           <Offset x="21" y="-40"/>
+            <Offset x="21" y="-40"/>
           </Anchor>
           <Anchor point="BOTTOMRIGHT">
-           <Offset x="-45" y="83"/>
+            <Offset x="-45" y="83"/>
           </Anchor>
         </Anchors>
         <Frames>
@@ -827,7 +946,7 @@
               </OnClick>
             </Scripts>
           </Button>
-          
+
           <Button name="LFGEventItem1" inherits="LFGEventItemButtonTemplate" id="1" hidden="true">
             <Anchors>
               <Anchor point="TOPLEFT" relativeTo="LFGEventsView_Tab">
@@ -978,7 +1097,7 @@
         </Frames>
         <Scripts>
           <OnShow>
-            if(not LFG.EventScrollFrames.fatchedInitially) then 
+            if(not LFG.EventScrollFrames.fatchedInitially) then
               LFG.Actions.Event.fetch();
               LFG.EventScrollFrames.fatchedInitially = true;
             end
@@ -986,14 +1105,14 @@
           </OnShow>
         </Scripts>
       </Frame>
-      
+
       <Frame name="LFGEventsCreate_Tab" enableMouse="true" movable="false" parent="LFGFrame" hidden="true">
         <Anchors>
           <Anchor point="TOPLEFT">
-           <Offset x="21" y="-40"/>
+            <Offset x="21" y="-40"/>
           </Anchor>
           <Anchor point="BOTTOMRIGHT">
-           <Offset x="-45" y="83"/>
+            <Offset x="-45" y="83"/>
           </Anchor>
         </Anchors>
         <Layers>
@@ -1008,7 +1127,7 @@
                     <AbsDimension x="20" y="-50"/>
                   </Offset>
                 </Anchor>
-              </Anchors> 
+              </Anchors>
             </FontString>
             <FontString inherits="GameFontNormal" justifyH="LEFT" text="Title: ">
               <Size>
@@ -1020,7 +1139,7 @@
                     <AbsDimension x="20" y="-110"/>
                   </Offset>
                 </Anchor>
-              </Anchors> 
+              </Anchors>
             </FontString>
             <FontString inherits="GameFontNormal" justifyH="LEFT" text="Description: ">
               <Size>
@@ -1032,7 +1151,7 @@
                     <AbsDimension x="20" y="-170"/>
                   </Offset>
                 </Anchor>
-              </Anchors> 
+              </Anchors>
             </FontString>
             <FontString inherits="GameFontHighlight" justifyH="LEFT" text="Minimum Level: ">
               <Size>
@@ -1044,7 +1163,7 @@
                     <AbsDimension x="20" y="-280"/>
                   </Offset>
                 </Anchor>
-              </Anchors> 
+              </Anchors>
             </FontString>
           </Layer>
         </Layers>
@@ -1101,7 +1220,7 @@
                   <AbsDimension x="0" y="-70"/>
                 </Offset>
               </Anchor>
-            </Anchors> 
+            </Anchors>
             <Scripts>
               <OnShow>
                 LFG.EventSelectMenu.OnLoad()
@@ -1127,7 +1246,7 @@
               </Layer>
             </Layers>
           </EditBox>
-          
+
           <EditBox name="LFGEventDescription" inherits="LFGEditBoxTemplate" multiline="true" letters="60">
             <Size>
               <AbsDimension x="280" y="25"/>
@@ -1166,7 +1285,7 @@
               <OnEscapePressed>
                 --this:ClearFocus()
               </OnEscapePressed>
-              
+
               <OnSizeChanged>
                 local lines = LFG.Utils.General.explode('\n', this:GetText() or "");
                 if ( table.getn(lines) >= 3) then
@@ -1206,14 +1325,14 @@
           </EditBox>
         </Frames>
       </Frame>
-      
+
       <Frame name="LFGEventsViewQueues_Tab" enableMouse="true" movable="false" parent="LFGFrame" hidden="true">
         <Anchors>
           <Anchor point="TOPLEFT">
-           <Offset x="21" y="-40"/>
+            <Offset x="21" y="-40"/>
           </Anchor>
           <Anchor point="BOTTOMRIGHT">
-           <Offset x="-45" y="83"/>
+            <Offset x="-45" y="83"/>
           </Anchor>
         </Anchors>
         <Layers>
@@ -1228,7 +1347,7 @@
                     <AbsDimension x="60" y="-7"/>
                   </Offset>
                 </Anchor>
-              </Anchors> 
+              </Anchors>
             </FontString>
             <FontString name="LFGEventsViewQueuesEventQueueToAndDescription" inherits="GameFontNormal" justifyH="LEFT" justifyV="TOP" >
               <Size>
@@ -1240,7 +1359,7 @@
                     <AbsDimension x="10" y="-35"/>
                   </Offset>
                 </Anchor>
-              </Anchors> 
+              </Anchors>
             </FontString>
             <Texture name="LFGEventsViewQueuesNameTab" file="Interface\FriendsFrame\WhoFrame-ColumnTabs">
               <Size>
@@ -1478,14 +1597,14 @@
           </Frame>
         </Frames>
       </Frame>
-      
+
       <Frame name="LFGDungeons_Tab" enableMouse="true" movable="false" parent="LFGFrame" hidden="true">
         <Anchors>
           <Anchor point="TOPLEFT">
-           <Offset x="21" y="-40"/>
+            <Offset x="21" y="-40"/>
           </Anchor>
           <Anchor point="BOTTOMRIGHT">
-           <Offset x="-45" y="83"/>
+            <Offset x="-45" y="83"/>
           </Anchor>
         </Anchors>
         <Layers>
@@ -1493,15 +1612,15 @@
           </Layer>
         </Layers>
       </Frame>
-      
-		</Frames>
+
+    </Frames>
     <Scripts>
       <OnLoad>
         LFG.Tabs.update();
       </OnLoad>
     </Scripts>
-	</Frame>
-  
+  </Frame>
+
   <Frame name="LFGRolePicker" parent="UIParent" enableMouse="true" hidden="true">
     <Size>
       <AbsDimension x="400" y="220"/>
@@ -1525,8 +1644,8 @@
       </EdgeSize>
     </Backdrop>
     <Layers>
-			<Layer level="OVERLAY">
-				<FontString name="LFGRolePickerTitle" inherits="GameFontHighlight" text="Choose your Roles">
+      <Layer level="OVERLAY">
+        <FontString name="LFGRolePickerTitle" inherits="GameFontHighlight" text="Choose your Roles">
           <Size>
             <AbsDimension x="200" y="15"/>
           </Size>
@@ -1538,8 +1657,8 @@
             </Anchor>
           </Anchors>
         </FontString>
-			</Layer>
-		</Layers>
+      </Layer>
+    </Layers>
     <Frames>
       <Frame name="LFGRoleTankCheckButtonFrame" parent="LFGRolePicker" enableMouse="true" hidden="true">
         <Size>
@@ -1732,7 +1851,7 @@
           <OnEscapePressed>
             --this:ClearFocus()
           </OnEscapePressed>
-          
+
           <OnSizeChanged>
             local lines = LFG.Utils.General.explode('\n', this:GetText() or "");
             if ( table.getn(lines) >= 3) then

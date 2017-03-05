@@ -13,8 +13,9 @@ LFG.EventSelectMenu = {};
 LFG.QueueScrollFrames = {};
 LFG.QueueDropDownMenu = {};
 LFG.RolePicker = {};
+LFG.Whisper = {};
 
-UIPanelWindows["LFGFrame"] =		{ area = "left",	pushable = 11,	whileDead = 1 };
+UIPanelWindows["LFGFrame"] = { area = "left",	pushable = 11,	whileDead = 1 };
 
 LFG_Settings = LFG_Settings or {
   minimapPos = -45,
@@ -41,7 +42,7 @@ function LFG:updateCharacter()
 end
 
 function LFG:OnEvent()
-  
+
   if ( event == "VARIABLES_LOADED") then
     LFG.EventSelectMenu:setCurrentPage();
     LFG.MinimapIcon.reposition();
@@ -52,8 +53,12 @@ function LFG:OnEvent()
   if ( event == "CHAT_MSG_CHANNEL" or event == "CHAT_MSG_WHISPER") then
     return LFG.Router:route(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
   end
-  
+
   if ( event == "PARTY_MEMBERS_CHANGED") then
+  end
+
+  if ( event == "FRIENDLIST_UPDATE") then
+    LFG.QueueScrollFrames.checkForNewQueues();
   end
 
 end
@@ -74,14 +79,19 @@ function LFG:init()
 end
 
 function LFG:bindEvents()
-	self:RegisterEvent("CHAT_MSG_CHANNEL");
-	self:RegisterEvent("CHAT_MSG_WHISPER");
-	self:RegisterEvent("PARTY_MEMBERS_CHANGED");
+  self:RegisterEvent("FRIENDLIST_UPDATE");
+  self:RegisterEvent("CHAT_MSG_CHANNEL");
+  self:RegisterEvent("CHAT_MSG_WHISPER");
+  self:RegisterEvent("PARTY_MEMBERS_CHANGED");
   self:RegisterEvent("VARIABLES_LOADED");
-	self:SetScript("OnEvent", self.OnEvent);
+  self:SetScript("OnEvent", self.OnEvent);
   self:SetScript("OnUpdate", function()  self.MinimapIcon.updateIcon(); end);
 end
 
 LFG:bindEvents();
 
 -- FIX People In queue to be members - when soemone join the group it should update  the PIQ value
+
+-- todo: add a block list on events and check before returning events or accepting queus if the person is in block list.
+-- todo: add filters for fatching events (E_REQUEST)
+-- todo: add a E_RESPONSE, and Q_RESPONSE when user log back in

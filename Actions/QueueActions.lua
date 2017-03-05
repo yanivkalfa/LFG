@@ -8,20 +8,19 @@ local eventUtils = LFG.Utils.Events;
 function LFG.Actions.Queue.get(request)
 end
 
-function LFG.Actions.Queue.create(request)
+function LFG.Actions.Queue.create()
+  local name = LFG.RolePicker.name;
+  local event = LFG.RolePicker.event;
+  local roles = LFG.RolePicker.getRoles();
+  local noteToLeader = LFG.RolePicker.getNoteToLeader();
+  event.QTE = { expireAt = time() + LFG.Constants.QUEUE_TIMEOUT, timer = Timer.setTimeout(LFG.Constants.QUEUE_TIMEOUT, LFG.Actions.Queue.cancel, { name, event, true } )};
+  LFG.Outgoing:send(LFG.Constants.EVENTS.Q_CREATE, event.OR, { R = roles, NTL = noteToLeader });
+  LFG.EventScrollFrames.LFGEventItemUpdateButton(name, event);
 end
 
 function LFG.Actions.Queue.cancel(name, event, hideEvent)
-  event.QTE = nil;
-
-  if (hideEvent) then
-    event.hide = true;
-    LFG.EventScrollFrames.resetSelection(event);
-    LFG.RolePicker.reset(event);
-  end
-
-  -- send server cancel request
-  LFG.EventScrollFrames.LFGEventItemUpdateButton(name, event)
+  LFG.Actions.Event.cancelQueue(name, event, hideEvent)
+  LFG.Outgoing:send(LFG.Constants.EVENTS.Q_DELETE, event.OR, {});
 end
 
 function LFG.Actions.Queue.acceptQueue(name, index)
@@ -31,9 +30,7 @@ function LFG.Actions.Queue.acceptQueue(name, index)
   LFG.QueueScrollFrames.LFGQueueItemUpdateButton(name, index)
 end
 
-function LFG.Actions.Queue.declineQueue(name, index)
-  --local queue = LFG.QueueScrollFrames.queueList[index];
-  --queue.INV = nil;
-  -- send server cancel request
-  --LFG.QueueScrollFrames.LFGQueueItemUpdateButton(name, index)
+function LFG.Actions.Queue.delete(index)
+  table.remove(LFG.QueueScrollFrames.queueList, index);
+  LFG.QueueScrollFrames.updateLFGQueue()
 end
