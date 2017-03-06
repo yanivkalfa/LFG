@@ -33,10 +33,6 @@ Components\LFG_RolePicker.lua
 Components\LFG_Tabs.lua
 Components\LFG_Whisper.lua
 
-## Controllers
-Ctrls\EventsCtrl.lua
-Ctrls\QueuesCtrl.lua
-
 ## Actions
 Actions\EventActions.lua
 Actions\QueueActions.lua

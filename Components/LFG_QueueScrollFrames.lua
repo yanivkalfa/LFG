@@ -13,8 +13,6 @@ function LFG.QueueScrollFrames.LFGQueueResetSelected()
 end
 
 function LFG.QueueScrollFrames.LFGQueueOnClick(button)
-  --DEFAULT_CHAT_FRAME:AddMessage("aaaaaaa".. self.GetName());
-  -- if left we select the row
   if ( button == "LeftButton") then
     LFG.QueueScrollFrames.LFGQueueResetSelected()
     LFG.QueueScrollFrames.queueSelected = { index=this.queueIndex, name=this:GetName() };
@@ -103,7 +101,7 @@ end
 
 function LFG.QueueScrollFrames.updateLFGQueue()
   -- 1 through 5 of our window to scroll , an index into our data calculated from the scroll offset
-  local line, index, LFGQueueItemButton, LFGQueueItemName, totalResults;
+  local line, index, LFGQueueItemButton, LFGQueueItemName, totalResults, LFGQueueItemButton_InviteQueue;
   totalResults = table.getn(LFG.QueueScrollFrames.queueList);
   
   -- hiding tooltips to avoid incorrect data
@@ -114,6 +112,15 @@ function LFG.QueueScrollFrames.updateLFGQueue()
     index = line + FauxScrollFrame_GetOffset(LFGQueueScrollFrame);
     LFGQueueItemName = "LFGQueueItem"..line;
     LFGQueueItemButton = getglobal(LFGQueueItemName);
+    LFGQueueItemButton_InviteQueue = getglobal(LFGQueueItemName.."InviteQueue");
+
+    if ( totalResults > LFG.Constants.MAX_QUEUE_PAGE_SIZE ) then
+      LFGQueueItemButton:SetWidth(297);
+      LFGQueueItemButton_InviteQueue:SetPoint("RIGHT", LFGQueueItemButton, "RIGHT", -35, 0);
+    else
+      LFGQueueItemButton:SetWidth(314);
+      LFGQueueItemButton_InviteQueue:SetPoint("RIGHT", LFGQueueItemButton, "RIGHT", -30, 0);
+    end
     
     if (index <= totalResults) then
       LFGQueueItemButton:Show();

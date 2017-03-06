@@ -38,7 +38,6 @@ function LFG.Actions.Event.create()
   LFG_Settings.event = event;
   LFG.EventScrollFrames.newEvent = true;
   LFG.Tabs.select("events.viewQueues");
-  DEFAULT_CHAT_FRAME:AddMessage("Create");
 end
 
 function LFG.Actions.Event.remind()
@@ -49,7 +48,6 @@ end
 
 function LFG.Actions.Event.update(request)
   local event = LFG.Utils.Event.createEvent();
-  DEFAULT_CHAT_FRAME:AddMessage("event.I: ".. tostring(event.I));
   LFG.Outgoing:send(LFG.Constants.EVENTS.E_UPDATE, nil, event);
   LFG_Settings.event = event;
   LFG.Tabs.select("events.viewQueues");

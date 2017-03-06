@@ -1,7 +1,6 @@
 LFG.QueueDropDownMenu = {};
 
 function LFG.QueueDropDownMenu.OnClick()
-  --DEFAULT_CHAT_FRAME:AddMessage("UIDROPDOWNMENU_MENU_VALUE".. UIDROPDOWNMENU_MENU_VALUE);
   local id = this:GetID();
   local name = LFG.QueueScrollFrames.queueDropDownFocus.name;
   local index = LFG.QueueScrollFrames.queueDropDownFocus.index;

@@ -62,5 +62,4 @@ function LFG.MinimapIcon.OnUpdate()
 end
 
 function LFG.MinimapIcon.onClick()
-	DEFAULT_CHAT_FRAME:AddMessage(tostring(arg1).." was clicked.");
 end

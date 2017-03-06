@@ -18,7 +18,6 @@ function LFG.Incoming.Q_DELETE(payload, sender, language, channelString, target,
       return sender == value.OR;
     end);
 
-    DEFAULT_CHAT_FRAME:AddMessage("foundIndex, ".. tostring(foundIndex));
     if (foundIndex >= 1) then
       Timer.clearTimer(LFG.QueueScrollFrames.queueList[foundIndex].timer);
       LFG.Actions.Queue.delete(foundIndex);
@@ -45,12 +44,6 @@ function LFG.Incoming.Q_CREATE(payload, sender, language, channelString, target,
   end
 
   if ( LFG_Settings.event) then
-
-    for key, value in pairs(payload) do
-      DEFAULT_CHAT_FRAME:AddMessage("key = ".. tostring(key)..", value = "..tostring(value));
-    end
-
-
     local foundIndex = table.findIndex(LFG.QueueScrollFrames.queueList, function(index, value)
       return sender == value.OR;
     end);

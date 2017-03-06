@@ -439,7 +439,7 @@
           <AbsInset left="9" right="7" top="-7" bottom="10"/>
         </HitRectInsets>
         <Anchors>
-          <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT">
+          <Anchor point="LEFT" relativeTo="$parentInviteQueue" relativePoint="RIGHT">
             <Offset>
               <AbsDimension x="-5" y="-1"/>
             </Offset>
