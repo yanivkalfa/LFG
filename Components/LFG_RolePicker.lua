@@ -49,7 +49,7 @@ function LFG.RolePicker.getRoles()
   };
 end
 function LFG.RolePicker.getNoteToLeader()
-  LFGRolePickerNoteToLeader:GetText();
+  return LFGRolePickerNoteToLeader:GetText();
 end
 
 function LFG.RolePicker.roleSelected(roles)
@@ -57,17 +57,12 @@ function LFG.RolePicker.roleSelected(roles)
 end
 
 function LFG.RolePicker.signUp()
-  local name = LFG.RolePicker.name;
   local event = LFG.RolePicker.event;
   local roles = LFG.RolePicker.getRoles();
   if( not event or not LFG.RolePicker.roleSelected(roles) ) then
     return false;
   end
-  local noteToLeader = LFG.RolePicker.getNoteToLeader();
-  event.QTE = { expireAt = time() + 10, timer = Timer.setTimeout(10, LFG.Actions.Queue.cancel, { name, event, true } )};
-  -- send server cancel request
-  LFG.EventScrollFrames.LFGEventItemUpdateButton(name, event);
-  
+  LFG.Actions.Queue.create();
   LFGRolePicker:Hide();
 end
 

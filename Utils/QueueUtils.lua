@@ -1,23 +1,22 @@
-LFG.Utils.Event = {};
-function LFG.Utils.Event.createEvent()
-  local event = {
-    TT = LFGEventTitle:GetText(),
-    DC = LFGEventDescription:GetText(),
-    ML = tonumber(LFGEventMinLevel:GetText()),
-    QT = LFG.EventSelectMenu.selected,
-    PIE = 0,
-  };
-  
-  return event;
-end
+LFG.Utils.Queue = {};
 
-function LFG.Utils.Event.validateEventInput()
-  return LFG.EventSelectMenu.selected;
+function LFG.Utils.Queue.createQueue(event, eventOwner)
+
+ return {
+     OR=request.sender,
+     LVL=request.LVL,
+     C=request.C,
+     R=request.R,
+     QT=request.QT,
+     EI=request.EI,
+     TS=time(),
+     SU=1,
+ }
 end
 
 
 --[[
-function LFG.Utils.Event.createEventTwo(request)
+function LFG.Utils.Queue.createEventTwo(request)
 	return { 
     OR=request.sender,
     TT=request.TT,
@@ -31,7 +30,7 @@ function LFG.Utils.Event.createEventTwo(request)
   }
 end
 
-function LFG.Utils.Event.createEventResponse(event)
+function LFG.Utils.Queue.createEventResponse(event)
 
 	return {
     I=event.I,
@@ -45,7 +44,7 @@ function LFG.Utils.Event.createEventResponse(event)
   }
 end
 
-function LFG.Utils.Event.validateEvent(event)
+function LFG.Utils.Queue.validateEvent(event)
   local ML = true;
   if (event.ML and type(tonumber(event.ML)) ~= "number") then
     ML = false;
@@ -53,7 +52,7 @@ function LFG.Utils.Event.validateEvent(event)
 	return LFG.Constants.EVENT_LIST[event.QT] and ML;
 end
 
-function LFG.Utils.Event.createQueue(request)
+function LFG.Utils.Queue.createQueue(request)
 	return { 
     OR=request.sender,
     LVL=request.LVL,
@@ -66,11 +65,11 @@ function LFG.Utils.Event.createQueue(request)
   }
 end
 
-function LFG.Utils.Event.validateQueue(event, queue)
+function LFG.Utils.Queue.validateQueue(event, queue)
 	return LFG.Constants.EVENT_LIST[queue.QT] and queue.LVL >= event.ML 
 end
 
-function LFG.Utils.Event.createChunk(tChunk)
+function LFG.Utils.Queue.createChunk(tChunk)
   local chunk = { CP = 1, PP=LFG.Constants.MAX_PAGE_SIZE };
   if( type(tChunk) ~= "table") then 
     return chunk;

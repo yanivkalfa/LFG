@@ -3,29 +3,31 @@ LFG.Constants.MAX_PAGE_SIZE = 10;
 LFG.Constants.EVENT_ITEM_HEIGHT = 34;
 LFG.Constants.MAX_QUEUE_PAGE_SIZE = 10;
 LFG.Constants.QUEUE_ITEM_HEIGHT = 25;
+LFG.Constants.QUEUE_TIMEOUT = 100; --300;
+LFG.Constants.MAX_FRIENDS = 50;
 LFG.Constants.MSG_PREFIX = '__LFG__';
 LFG.Constants.PUBLIC_CHANNEL = 'LFG_PUBLIC';
 LFG.Constants.EVENTS = {
-	ERQ = 'ERQ', -- event request
-	ERS = 'ERS', -- event response
-  ECRQ = 'ECRQ', -- event create request
-  ECRS = 'ECRS', -- event create response
-  EURQ = "EURQ", -- event update request
-  EURS = "EURS", -- event update response
-  EDRQ = "EDRQ", -- event delete request
-  EDRS = "EDRS", -- event delete response
-  EQRQ = "EQRQ", -- event queue request
-  EQRS = "EQRS", -- event queue response
-  EQCRQ = "EQCRQ", -- event queue create request
-  EQCRS = "EQCRS", -- event queue create response
-  EQDRQ = "EQDRQ", -- event queue delete request
-  EQDRS = "EQDRS" -- event queue delete response
+  E_REQUEST = 'E_REQUEST', -- event request
+  E_RESPONSE = 'E_RESPONSE', -- event response
+  E_CREATE = 'E_CREATE', -- event create
+  E_UPDATE = "E_UPDATE", -- event update
+  E_DELETE = "E_DELETE", -- event delete
+
+
+  Q_REQUEST = 'Q_REQUEST', -- queue request
+  Q_RESPONSE = 'Q_RESPONSE', -- queue response
+  Q_CREATE = 'Q_CREATE', -- queue create
+  Q_DELETE = "Q_DELETE", -- queue delete
+  Q_ACCEPT = "Q_ACCEPT", -- event accept
+  Q_DECLINE = "Q_DECLINE", -- event decline
+
 };
 LFG.Constants.FACETIONS_LIST = { H=true, A=true };
 LFG.Constants.ROLES_LIST = { T=true, H=true, D=true };
 LFG.Constants.TABLES_LIST = { D=true, C=true, B=true };
 
-LFG.Constants.ROLE_FOR_CLASS_LIST = { 
+LFG.Constants.ROLE_FOR_CLASS_LIST = {
   Warrior={ T=true, D=true, preset=2 },
   Paladin={ T=true, H=true, D=true, preset=3 },
   Druid={ T=true, H=true, D=true, preset=3 },
@@ -37,7 +39,7 @@ LFG.Constants.ROLE_FOR_CLASS_LIST = {
   Shaman={ H=true, D=true, preset=2 },
 };
 
-LFG.Constants.CLASS_LIST = { 
+LFG.Constants.CLASS_LIST = {
   WR = "Warrior",
   PA = "Paladin",
   DR = "Druid",
@@ -47,6 +49,18 @@ LFG.Constants.CLASS_LIST = {
   WA = "Warlock",
   PR = "Priest",
   SH = "Shaman",
+};
+
+LFG.Constants.CLASS_LIST_MAP = {
+  Warrior = "WR",
+  Paladin = "PA",
+  Druid = "DR",
+  Hunter = "HU",
+  Rogue = "RO",
+  Mage = "MA",
+  Warlock = "WA",
+  Priest = "PR",
+  Shaman = "SH",
 };
 
 LFG.Constants.RAID_CLASS_COLORS = {
@@ -62,51 +76,51 @@ LFG.Constants.RAID_CLASS_COLORS = {
 };
 
 LFG.Constants.PVP_LEVELS = {
-	a = { minLevel=10, maxLevel=19 },
-	b = { minLevel=20, maxLevel=29 },
-	c = { minLevel=30, maxLevel=39 },
-	d = { minLevel=40, maxLevel=49 },
-	e = { minLevel=50, maxLevel=59 },
-	f = { minLevel=60, maxLevel=60 }
+  a = { minLevel=10, maxLevel=19 },
+  b = { minLevel=20, maxLevel=29 },
+  c = { minLevel=30, maxLevel=39 },
+  d = { minLevel=40, maxLevel=49 },
+  e = { minLevel=50, maxLevel=59 },
+  f = { minLevel=60, maxLevel=60 }
 };
 
 LFG.Constants.EVENT_LIST = {
-	RFC		= { id = "RFC", name="Ragefire Chasm", faction="h", active=true, players=5, minLevel=13, maxLevel=18, evenType="D"},
-	WC		= { id = "WC", name="Wailing Caverns", faction="b", active=true, players=5, minLevel=17, maxLevel=24, evenType="D"},
-	DM		= { id = "DM", name="The Deadmines", faction="b", active=true, players=5, minLevel=17, maxLevel=26, evenType="D"},
-	SFK		= { id = "SFK", name="Shadowfang Keep", faction="b", active=true, players=5, minLevel=22, maxLevel=30, evenType="D"},
-	BFD 	= { id = "BFD", name="Blackfathom Deeps", faction="b", active=true, players=5, minLevel=24, maxLevel=32, evenType="D"},
-	STDE 	= { id = "STDE", name="The Stockade", faction="a", active=true, players=5, minLevel=24, maxLevel=32, evenType="D"},
-	GRG 	= { id = "GRG", name="Gnomeregan", faction="b", active=true, players=5, minLevel=29, maxLevel=38, evenType="D"},
-	RFK 	= { id = "RFK", name="Razorfen Kraul", faction="b", active=true, players=5, minLevel=29, maxLevel=38, evenType="D"},
-	SMG 	= { id = "SMG", name="Scarlet Monastery - The Graveyard", faction="b", active=true, players=5, minLevel=30, maxLevel=36, evenType="D"},
-	SML 	= { id = "SML", name="Scarlet Monastery - The Library", faction="b", active=true, players=5, minLevel=32, maxLevel=38, evenType="D"},
-	SMA 	= { id = "SMA", name="Scarlet Monastery - The Armory", faction="b", active=true, players=5, minLevel=33, maxLevel=40, evenType="D"},
-	SMC 	= { id = "SMC", name="Scarlet Monastery - The Cathedral", faction="b", active=true, players=5, minLevel=36, maxLevel=44, evenType="D"},
-	RFD 	= { id = "RFD", name="Razorfen Downs", faction="b", active=true, players=5, minLevel=37, maxLevel=46, evenType="D"},
-	UL		= { id = "UL", name="Uldaman", faction="b", active=true, players=5, minLevel=41, maxLevel=51, evenType="D"},
-	ZF		= { id = "ZF", name="Zul'Farrak", faction="b", active=true, players=5, minLevel=42, maxLevel=46, evenType="D"},
-	MD		= { id = "MD", name="Maraudon", faction="b", active=true, players=5, minLevel=46, maxLevel=55, evenType="D"},
-	ST		= { id = "ST", name="Sunken Temple", faction="b", active=true, players=5, minLevel=50, maxLevel=56, evenType="D"},
-	BRD		= { id = "BRD", name="Blackrock Depths", faction="b", active=true, players=5, minLevel=52, maxLevel=60, evenType="D"},
-	LBRS	= { id = "LBRS", name="Lower Blackrock Spire", faction="b", active=true, players=5, minLevel=55, maxLevel=60, evenType="D"},
-	UBRS	= { id = "UBRS", name="Upper Blackrock Spire", faction="b", active=true, players=10, minLevel=55, maxLevel=60, evenType="D"},
-	DMW		= { id = "DMW", name="Dire Maul - Warpwood", faction="b", active=true, players=5, minLevel=55, maxLevel=60, evenType="D"},
-	DME		= { id = "DME", name="Dire Maul - East", faction="b", active=true, players=5, minLevel=55, maxLevel=60, evenType="D"},
-	STRTU	= { id = "STRTU", name="Stratholme - Undead", faction="b", active=true, players=5, minLevel=58, maxLevel=60, evenType="D"},
-	STRTL	= { id = "STRTL", name="Stratholme - Live", faction="b", active=true, players=5, minLevel=58, maxLevel=60, evenType="D"},
-	SH		= { id = "SH", name="Scholomance", faction="b", active=true, players=5, minLevel=58, maxLevel=60, evenType="D"},
-	ONY		= { id = "ONY", name="Onyxia's Lair", active=true, players=40, minLevel=60, maxLevel=60, evenType="R"},
-	MC		= { id = "MC", name="Molten Core", active=true, players=40, minLevel=60, maxLevel=60, evenType="R"},
-	ZG		= { id = "ZG", name="Zul'Gurub", active=false, players=20, minLevel=60, maxLevel=60, evenType="R"},
-	BWL		= { id = "BWL", name="Blackwing Lair", active=false, players=40, minLevel=60, maxLevel=60, evenType="R"},
-	RAQ		= { id = "RAQ", name="Ruins of Ahn'Qiraj", active=false, players=20, minLevel=60, maxLevel=60, evenType="R"},
-	TAQ		= { id = "TAQ", name="Temple of Ahn'Qiraj", active=false, players=40, minLevel=60, maxLevel=60, evenType="R"},
-	NAX		= { id = "NAX", name="Naxxramas", active=false, players=40, minLevel=60, maxLevel=60, evenType="R"},
-	WG		= { id = "WG", name="Warsong Gulch", active=true, players=10, minLevel="any", evenType="R"},
-	AB 		= { id = "AB", name="Arathi Basin", active=true, players=15, minLevel="any", evenType="R"},
-	AV 		= { id = "AV", name="Alterac Valley", active=false, players=40, minLevel="any", evenType="R"},
-	CUS		= { id = "CUS", name="Custom", active=true, players=nil, minLevel="any", evenType="R"}
+  RFC		= { id = "RFC", name="Ragefire Chasm", faction="h", active=true, players=5, minLevel=13, maxLevel=18, evenType="D"},
+  WC		= { id = "WC", name="Wailing Caverns", faction="b", active=true, players=5, minLevel=17, maxLevel=24, evenType="D"},
+  DM		= { id = "DM", name="The Deadmines", faction="b", active=true, players=5, minLevel=17, maxLevel=26, evenType="D"},
+  SFK		= { id = "SFK", name="Shadowfang Keep", faction="b", active=true, players=5, minLevel=22, maxLevel=30, evenType="D"},
+  BFD 	= { id = "BFD", name="Blackfathom Deeps", faction="b", active=true, players=5, minLevel=24, maxLevel=32, evenType="D"},
+  STDE 	= { id = "STDE", name="The Stockade", faction="a", active=true, players=5, minLevel=24, maxLevel=32, evenType="D"},
+  GRG 	= { id = "GRG", name="Gnomeregan", faction="b", active=true, players=5, minLevel=29, maxLevel=38, evenType="D"},
+  RFK 	= { id = "RFK", name="Razorfen Kraul", faction="b", active=true, players=5, minLevel=29, maxLevel=38, evenType="D"},
+  SMG 	= { id = "SMG", name="Scarlet Monastery - The Graveyard", faction="b", active=true, players=5, minLevel=30, maxLevel=36, evenType="D"},
+  SML 	= { id = "SML", name="Scarlet Monastery - The Library", faction="b", active=true, players=5, minLevel=32, maxLevel=38, evenType="D"},
+  SMA 	= { id = "SMA", name="Scarlet Monastery - The Armory", faction="b", active=true, players=5, minLevel=33, maxLevel=40, evenType="D"},
+  SMC 	= { id = "SMC", name="Scarlet Monastery - The Cathedral", faction="b", active=true, players=5, minLevel=36, maxLevel=44, evenType="D"},
+  RFD 	= { id = "RFD", name="Razorfen Downs", faction="b", active=true, players=5, minLevel=37, maxLevel=46, evenType="D"},
+  UL		= { id = "UL", name="Uldaman", faction="b", active=true, players=5, minLevel=41, maxLevel=51, evenType="D"},
+  ZF		= { id = "ZF", name="Zul'Farrak", faction="b", active=true, players=5, minLevel=42, maxLevel=46, evenType="D"},
+  MD		= { id = "MD", name="Maraudon", faction="b", active=true, players=5, minLevel=46, maxLevel=55, evenType="D"},
+  ST		= { id = "ST", name="Sunken Temple", faction="b", active=true, players=5, minLevel=50, maxLevel=56, evenType="D"},
+  BRD		= { id = "BRD", name="Blackrock Depths", faction="b", active=true, players=5, minLevel=52, maxLevel=60, evenType="D"},
+  LBRS	= { id = "LBRS", name="Lower Blackrock Spire", faction="b", active=true, players=5, minLevel=55, maxLevel=60, evenType="D"},
+  UBRS	= { id = "UBRS", name="Upper Blackrock Spire", faction="b", active=true, players=10, minLevel=55, maxLevel=60, evenType="D"},
+  DMW		= { id = "DMW", name="Dire Maul - Warpwood", faction="b", active=true, players=5, minLevel=55, maxLevel=60, evenType="D"},
+  DME		= { id = "DME", name="Dire Maul - East", faction="b", active=true, players=5, minLevel=55, maxLevel=60, evenType="D"},
+  STRTU	= { id = "STRTU", name="Stratholme - Undead", faction="b", active=true, players=5, minLevel=58, maxLevel=60, evenType="D"},
+  STRTL	= { id = "STRTL", name="Stratholme - Live", faction="b", active=true, players=5, minLevel=58, maxLevel=60, evenType="D"},
+  SH		= { id = "SH", name="Scholomance", faction="b", active=true, players=5, minLevel=58, maxLevel=60, evenType="D"},
+  ONY		= { id = "ONY", name="Onyxia's Lair", active=true, players=40, minLevel=60, maxLevel=60, evenType="R"},
+  MC		= { id = "MC", name="Molten Core", active=true, players=40, minLevel=60, maxLevel=60, evenType="R"},
+  ZG		= { id = "ZG", name="Zul'Gurub", active=false, players=20, minLevel=60, maxLevel=60, evenType="R"},
+  BWL		= { id = "BWL", name="Blackwing Lair", active=false, players=40, minLevel=60, maxLevel=60, evenType="R"},
+  RAQ		= { id = "RAQ", name="Ruins of Ahn'Qiraj", active=false, players=20, minLevel=60, maxLevel=60, evenType="R"},
+  TAQ		= { id = "TAQ", name="Temple of Ahn'Qiraj", active=false, players=40, minLevel=60, maxLevel=60, evenType="R"},
+  NAX		= { id = "NAX", name="Naxxramas", active=false, players=40, minLevel=60, maxLevel=60, evenType="R"},
+  WG		= { id = "WG", name="Warsong Gulch", active=true, players=10, minLevel="any", evenType="R"},
+  AB 		= { id = "AB", name="Arathi Basin", active=true, players=15, minLevel="any", evenType="R"},
+  AV 		= { id = "AV", name="Alterac Valley", active=false, players=40, minLevel="any", evenType="R"},
+  CUS		= { id = "CUS", name="Custom", active=true, players=nil, minLevel="any", evenType="R"}
 };
 
 LFG.Constants.EVENT_LIST_HASH_A = {
@@ -114,7 +128,7 @@ LFG.Constants.EVENT_LIST_HASH_A = {
   "UL", "ZF", "MD", "ST", "BRD", "LBRS", "UBRS", "DMW", "DME", "STRTU", "STRTL", "ONY", "MC",
   "ZG", "BWL", "RAQ", "TAQ", "NAX"
 };
-LFG.Constants.EVENT_LIST_HASH_H = { 
+LFG.Constants.EVENT_LIST_HASH_H = {
   "RFC", "WC", "DM", "SFK", "BFD", "GRG", "RFK", "SMG", "SML", "SMA", "SMC", "RFD",
   "UL", "ZF", "MD", "ST", "BRD", "LBRS", "UBRS", "DMW", "DME", "STRTU", "STRTL", "ONY", "MC",
   "ZG", "BWL", "RAQ", "TAQ", "NAX"
