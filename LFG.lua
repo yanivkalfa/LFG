@@ -59,6 +59,10 @@ function LFG:OnEvent()
     end
   end
 
+  if ( event == "PLAYER_LEVEL_UP") then
+    LFG:updateCharacter();
+  end
+
   if (not LFG_Settings.character.isValid) then
     return false;
   end
@@ -102,6 +106,7 @@ function LFG:init()
 end
 
 function LFG:bindEvents()
+  self:RegisterEvent("PLAYER_LEVEL_UP");
   self:RegisterEvent("CHAT_MSG_CHANNEL");
   self:RegisterEvent("CHAT_MSG_WHISPER");
   self:RegisterEvent("PARTY_MEMBERS_CHANGED");
