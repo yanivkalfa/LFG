@@ -24,6 +24,7 @@ function LFG.Actions.Queue.create()
   event.QTE = {
     expireAt = time() + LFG.Constants.QUEUE_TIMEOUT,
     timer = Timer.setTimeout(LFG.Constants.QUEUE_TIMEOUT, LFG.Actions.Queue.cancel, { name, event, true } ),
+    requestTimer = Timer.setTimeout(LFG.Constants.QUEUE_REQUEST_TIMEOUT, LFG.Actions.Event.remove, { event } ),
     queue = queue;
   };
   LFG.Actions.Queue.count = LFG.Actions.Queue.count + 1;

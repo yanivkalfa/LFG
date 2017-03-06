@@ -103,4 +103,3 @@ LFG:bindEvents();
 -- todo: add commend line
 -- todo: add invite / accept funtionality
 -- todo: add member count update functionality.
--- todo: find a way to notify user when a event creator has logged of without delisting the group

@@ -55,12 +55,33 @@ function LFG.Actions.Event.update(request)
   LFG.Tabs.select("events.viewQueues");
 end
 
-function LFG.Actions.Event.delete(request)
+function LFG.Actions.Event.delete()
   LFG.Outgoing:send(LFG.Constants.EVENTS.E_DELETE, nil, {});
   LFG.QueueScrollFrames.queueList = {};
   LFG.QueueScrollFrames.updateLFGQueue();
   LFG_Settings.event = nil;
   LFG.Tabs.select("events.view");
+end
+
+function LFG.Actions.Event.remove(event)
+
+  if( type(event) ~= "table") then
+    return false;
+  end
+
+  if (type(event.QTE) == "table" and event.QTE.timer) then
+    Timer.clearTimer(event.QTE.timer);
+  end
+
+  local foundIndex = table.findIndex(LFG.EventScrollFrames.eventList, function(index, value)
+    return event.OR == value.OR;
+  end)
+
+  if ( foundIndex ) then
+    table.remove(LFG.EventScrollFrames.eventList, foundIndex);
+    LFG.EventScrollFrames.updateLFGEvent();
+  end
+
 end
 
 function LFG.Actions.Event.cancelQueue(name, event, hideEvent)
