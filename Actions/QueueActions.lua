@@ -23,7 +23,7 @@ function LFG.Actions.Queue.create()
   };
   event.QTE = {
     expireAt = time() + LFG.Constants.QUEUE_TIMEOUT,
-    timer = Timer.setTimeout(LFG.Constants.QUEUE_TIMEOUT, LFG.Actions.Queue.cancel, { name, event, true } ),
+    timer = Timer.setTimeout(LFG.Constants.QUEUE_TIMEOUT, LFG.Actions.Queue.cancel, { name, event } ),
     requestTimer = Timer.setTimeout(LFG.Constants.QUEUE_REQUEST_TIMEOUT, LFG.Actions.Event.remove, { event } ),
     queue = queue;
   };
@@ -32,9 +32,8 @@ function LFG.Actions.Queue.create()
   LFG.EventScrollFrames.LFGEventItemUpdateButton(name, event);
 end
 
-function LFG.Actions.Queue.cancel(name, event, hideEvent)
-  LFG.Actions.Event.cancelQueue(name, event, hideEvent);
-  LFG.Actions.Queue.count = LFG.Actions.Queue.count - 1;
+function LFG.Actions.Queue.cancel(name, event)
+  LFG.Actions.Event.cancelQueue(name, event);
   LFG.Outgoing:send(LFG.Constants.EVENTS.Q_DELETE, event.OR, {});
 end
 
@@ -46,6 +45,12 @@ function LFG.Actions.Queue.acceptQueue(name, index)
 end
 
 function LFG.Actions.Queue.delete(index)
+  local queue = LFG.QueueScrollFrames.queueList[index];
+
+  if (queue and queue.OR) then
+    local pos = table.getn(LFG_Settings.eventBlockedUsersList) + 1;
+    table.insert(LFG_Settings.eventBlockedUsersList, pos, queue.OR);
+  end
   table.remove(LFG.QueueScrollFrames.queueList, index);
   LFG.QueueScrollFrames.updateLFGQueue()
 end

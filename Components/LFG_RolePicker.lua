@@ -82,15 +82,12 @@ function LFG.RolePicker.cancel()
   LFGRoleDPSCheckButton:SetChecked(false);
 
   if(LFG_Settings.lastRoleSelected.T) then
-    DEFAULT_CHAT_FRAME:AddMessage("T");
     LFGRoleTankCheckButton:SetChecked(true);
   end
   if(LFG_Settings.lastRoleSelected.H) then
-    DEFAULT_CHAT_FRAME:AddMessage("H");
     LFGRoleHealCheckButton:SetChecked(true);
   end
   if(LFG_Settings.lastRoleSelected.D) then
-    DEFAULT_CHAT_FRAME:AddMessage("D");
     LFGRoleDPSCheckButton:SetChecked(true);
   end
 end

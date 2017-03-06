@@ -9,7 +9,7 @@ LFG.MinimapIcon = {
 
 function LFG.MinimapIcon.updateIcon()
   
-  if(LFG.animateIcon) then
+  if(LFG.Actions.Queue.count >= 1) then
     LFG.MinimapIcon.counter = LFG.MinimapIcon.counter + arg1;
     
     if(LFG.MinimapIcon.counter >= LFG.MinimapIcon.rate) then
@@ -62,5 +62,4 @@ function LFG.MinimapIcon.OnUpdate()
 end
 
 function LFG.MinimapIcon.onClick()
-	DEFAULT_CHAT_FRAME:AddMessage(tostring(arg1).." was clicked.");
 end

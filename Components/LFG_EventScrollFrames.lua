@@ -26,8 +26,6 @@ function LFG.EventScrollFrames.resetSelection(event)
 
 end
 
-
-
 function LFG.EventScrollFrames.LFGEventResetSelected()
   for line=1,LFG.Constants.MAX_PAGE_SIZE do
     getglobal("LFGEventItem"..line):SetButtonState("NORMAL");
@@ -75,28 +73,6 @@ function LFG.EventScrollFrames.LFGEventOnEnter()
   GameTooltip:SetOwner(this, "ANCHOR_RIGHT");
   GameTooltip:SetText(toolTip);
 end
-
---[[
-function LFG.EventScrollFrames.LFGEventOnLoad()
-   for i=1,53 do
-    LFG.EventScrollFrames.eventList[i] = {
-      I=i,
-      OR="Zeeclienth",
-      TT="Some Title_"..i,
-      DC="Some Description_"..i,
-      F="H",
-      ML="25",
-      QT="ONY",
-      TS=1485898756 + i*20,
-      PIQ={ T=1, H=1, D=3, TT=5 }
-    };
-    if(i == 13  or i==11 or i ==20) then
-      LFG.EventScrollFrames.eventList[i].QTE = true;
-    end
-  end
-  LFGEventScrollFrame:Show()
-end
-]]--
 
 function LFG.EventScrollFrames.LFGEventItemUpdateButton(LFGEventItemName, event)
   local LFGEventItemButton, LFGEventItemButton_Title, LFGEventItemButton_QueueTo,
@@ -154,7 +130,6 @@ local function filter(index, value)
   local inQueueTo = string.find(queueTo, text) or queueTo == text;
   local InLevel = string.find(value.ML, text) or value.ML == text;
 
-  --DEFAULT_CHAT_FRAME:AddMessage("inTitle, inDescription, inQueueTo, InLevel: "..tostring(inTitle)..", "..tostring(inDescription)..", "..tostring(inQueueTo)..", "..tostring(InLevel));
   if(not inTitle and not inDescription and not inQueueTo and not InLevel ) then
     return true;
   end

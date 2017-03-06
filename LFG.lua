@@ -20,6 +20,7 @@ UIPanelWindows["LFGFrame"] = { area = "left",	pushable = 11,	whileDead = 1 };
 LFG_Settings = LFG_Settings or {
   minimapPos = -45,
   event = nil,
+  eventBlockedUsersList = {},
   queue = {},
   lastRoleSelected = { T = nil, H = nil, D = nil },
   character = {
@@ -50,6 +51,7 @@ function LFG:OnEvent()
 
   if ( event == "VARIABLES_LOADED") then
     LFG:updateCharacter();
+    --LFG_Settings.eventBlockedUsersList = {};
     LFG.MinimapIcon.reposition();
     if (LFG_Settings.character.isValid) then
       LFG.EventSelectMenu:setCurrentPage();
@@ -98,8 +100,6 @@ LFG:bindEvents();
 
 -- FIX People In queue to be members - when soemone join the group it should update  the PIQ value
 
--- todo fix queue button size when queueList too small
--- todo: add a block list on events and check before returning events or accepting queus if the person is in block list.
 -- todo: add commend line
 -- todo: add invite / accept funtionality
 -- todo: add member count update functionality.
