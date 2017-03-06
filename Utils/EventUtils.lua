@@ -3,7 +3,7 @@ function LFG.Utils.Event.createEvent()
   local event = {
     TT = LFGEventTitle:GetText(),
     DC = LFGEventDescription:GetText(),
-    ML = LFGEventMinLevel:GetText(),
+    ML = tonumber(LFGEventMinLevel:GetText()),
     QT = LFG.EventSelectMenu.selected,
     PIE = 0,
   };

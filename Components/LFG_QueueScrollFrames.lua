@@ -2,28 +2,9 @@ LFG.QueueScrollFrames = {
   queueSelected = { index=0, name='' },
   queueDropDownFocus = { index=0, name='' },
   queueList = {},
-  queueToAdd = {}
+  queueToAdd = {},
+  fetchedInitially = nil
 };
-
-function LFG.QueueScrollFrames.checkForNewQueues()
-  if ( event == "FRIENDLIST_UPDATE" and LFG.Utils.Friend.added and LFG.QueueScrollFrames.queueToAdd.OR) then
-    local index, name, level, class, queue;
-    index, name, level, class = LFG.Utils.Friend.getFriendInfoFromList(LFG.Utils.Friend.added);
-    DEFAULT_CHAT_FRAME:AddMessage("index, name, level, class: "..tostring(index)..", "..tostring(name)..", "..tostring(level)..", "..tostring(class));
-    if ( index ) then
-
-      LFG.QueueScrollFrames.queueToAdd.C = LFG.Constants.CLASS_LIST_MAP[class];
-      LFG.QueueScrollFrames.queueToAdd.LVL = level;
-
-      local pos = table.getn(LFG.QueueScrollFrames.queueList) + 1;
-      table.insert(LFG.QueueScrollFrames.queueList, pos, LFG.QueueScrollFrames.queueToAdd);
-      LFG.QueueScrollFrames.queueToAdd = {};
-      LFG.Utils.Table.sort(LFG.QueueScrollFrames.queueList, {OB = "TS"});
-      LFG.QueueScrollFrames.updateLFGQueue();
-      LFG.Utils.Friend.resetFriendCheck(index);
-    end
-  end
-end
 
 function LFG.QueueScrollFrames.LFGQueueResetSelected()
   for line=1,LFG.Constants.MAX_QUEUE_PAGE_SIZE do

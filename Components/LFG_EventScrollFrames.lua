@@ -4,7 +4,8 @@ LFG.EventScrollFrames = {
   eventList = {},
   filter = nill,
   searchBouncer = nil,
-  fatchedInitially = nil
+  fetchedInitially = nil,
+  newEvent = nil
 };
 
 function LFG.EventScrollFrames.resetSelection(event)

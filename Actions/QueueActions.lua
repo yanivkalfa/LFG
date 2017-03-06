@@ -1,11 +1,12 @@
-LFG.Actions.Queue = {};
+LFG.Actions.Queue = {
+  count = 0,
+};
 local tableUtils = LFG.Utils.Table;
 local eventUtils = LFG.Utils.Events;
 
--- add to local queue list
---
 
-function LFG.Actions.Queue.get(request)
+function LFG.Actions.Queue.fetch()
+  LFG.Outgoing:send(LFG.Constants.EVENTS.Q_REQUEST, nil, {});
 end
 
 function LFG.Actions.Queue.create()
@@ -13,13 +14,26 @@ function LFG.Actions.Queue.create()
   local event = LFG.RolePicker.event;
   local roles = LFG.RolePicker.getRoles();
   local noteToLeader = LFG.RolePicker.getNoteToLeader();
-  event.QTE = { expireAt = time() + LFG.Constants.QUEUE_TIMEOUT, timer = Timer.setTimeout(LFG.Constants.QUEUE_TIMEOUT, LFG.Actions.Queue.cancel, { name, event, true } )};
-  LFG.Outgoing:send(LFG.Constants.EVENTS.Q_CREATE, event.OR, { R = roles, NTL = noteToLeader });
+  local queue = {
+    OR = event.OR,
+    C = LFG.Constants.CLASS_LIST_MAP[LFG_Settings.character.class],
+    LVL = LFG_Settings.character.level,
+    R = roles,
+    NTL = noteToLeader
+  };
+  event.QTE = {
+    expireAt = time() + LFG.Constants.QUEUE_TIMEOUT,
+    timer = Timer.setTimeout(LFG.Constants.QUEUE_TIMEOUT, LFG.Actions.Queue.cancel, { name, event, true } ),
+    queue = queue;
+  };
+  LFG.Actions.Queue.count = LFG.Actions.Queue.count + 1;
+  LFG.Outgoing:send(LFG.Constants.EVENTS.Q_CREATE, event.OR, queue);
   LFG.EventScrollFrames.LFGEventItemUpdateButton(name, event);
 end
 
 function LFG.Actions.Queue.cancel(name, event, hideEvent)
-  LFG.Actions.Event.cancelQueue(name, event, hideEvent)
+  LFG.Actions.Event.cancelQueue(name, event, hideEvent);
+  LFG.Actions.Queue.count = LFG.Actions.Queue.count - 1;
   LFG.Outgoing:send(LFG.Constants.EVENTS.Q_DELETE, event.OR, {});
 end
 

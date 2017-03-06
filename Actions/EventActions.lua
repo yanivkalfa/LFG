@@ -36,8 +36,15 @@ function LFG.Actions.Event.create()
   LFG.QueueScrollFrames.queueList = {};
   LFG.QueueScrollFrames.updateLFGQueue();
   LFG_Settings.event = event;
+  LFG.EventScrollFrames.newEvent = true;
   LFG.Tabs.select("events.viewQueues");
   DEFAULT_CHAT_FRAME:AddMessage("Create");
+end
+
+function LFG.Actions.Event.remind()
+  if ( LFG_Settings.event ) then
+    LFG.Outgoing:send(LFG.Constants.EVENTS.E_CREATE, nil, LFG_Settings.event);
+  end
 end
 
 function LFG.Actions.Event.update(request)

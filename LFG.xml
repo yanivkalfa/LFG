@@ -564,6 +564,7 @@
             </Anchor>
           </Anchors>
         </Texture>
+        <!--
         <Texture file="Interface\Spellbook\SpellBook-SkillLineTab">
           <Size>
             <AbsDimension x="90" y="90"/>
@@ -588,6 +589,7 @@
             </Anchor>
           </Anchors>
         </Texture>
+        -->
         <FontString name="LFGCTitleText" inherits="GameFontHighlight" text="LFG - Custom Events">
           <Size>
             <AbsDimension x="300" y="14"/>
@@ -603,7 +605,6 @@
       </Layer>
     </Layers>
     <Frames>
-
       <Frame name="LFGWhisper" toplevel="true" hidden="true">
         <Size>
           <AbsDimension x="500" y="40"/>
@@ -692,31 +693,6 @@
           </Button>
         </Frames>
       </Frame>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       <Button name="LFGFrameCloseButton" inherits="UIPanelCloseButton">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeTo="LFGFrame" relativePoint="TOPRIGHT">
@@ -731,6 +707,7 @@
           </OnClick>
         </Scripts>
       </Button>
+      <!--
       <Button name="LFGFrameEvent">
         <Size>
           <AbsDimension x="40" y="42"/>
@@ -791,6 +768,7 @@
         <PushedTexture file="Interface\AddOns\LFG\Icons\LFGICON-DEADMINES-PUSHED"/>
         <HighlightTexture file="Interface\AddOns\LFG\Icons\LFGICON-DEADMINES-HIGHLIGHT" alphaMode="ADD"/>
       </Button>
+      -->
 
       <Frame name="LFGEventsView_Tab" enableMouse="true" movable="false" parent="LFGFrame" hidden="true">
         <Anchors>
@@ -1097,9 +1075,9 @@
         </Frames>
         <Scripts>
           <OnShow>
-            if(not LFG.EventScrollFrames.fatchedInitially) then
+            if(not LFG.EventScrollFrames.fetchedInitially) then
               LFG.Actions.Event.fetch();
-              LFG.EventScrollFrames.fatchedInitially = true;
+              LFG.EventScrollFrames.fetchedInitially = true;
             end
             LFGEventScrollFrame:Show();
           </OnShow>
@@ -1596,9 +1574,18 @@
             </Scripts>
           </Frame>
         </Frames>
+        <Scripts>
+          <OnShow>
+            if(not LFG.EventScrollFrames.newEvent and not LFG.QueueScrollFrames.fetchedInitially) then
+              LFG.Actions.Event.remind();
+              LFG.Actions.Queue.fetch();
+              LFG.QueueScrollFrames.fetchedInitially = true;
+            end
+          </OnShow>
+        </Scripts>
       </Frame>
 
-      <Frame name="LFGDungeons_Tab" enableMouse="true" movable="false" parent="LFGFrame" hidden="true">
+      <Frame name="LFGInvalidUser_Tab" enableMouse="true" movable="false" parent="LFGFrame" hidden="true">
         <Anchors>
           <Anchor point="TOPLEFT">
             <Offset x="21" y="-40"/>
@@ -1609,15 +1596,27 @@
         </Anchors>
         <Layers>
           <Layer level="ARTWORK">
+            <FontString name="LFGInvalidUserText" inherits="GameFontNormal" justifyH="LEFT" text="Come back when you are a bit older please! ">
+              <Size>
+                <AbsDimension x="300" y="20"/>
+              </Size>
+              <Anchors>
+                <Anchor point="LEFT">
+                  <Offset>
+                    <AbsDimension x="27" y="-2"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+            </FontString>
           </Layer>
         </Layers>
       </Frame>
 
     </Frames>
     <Scripts>
-      <OnLoad>
+      <OnShow>
         LFG.Tabs.update();
-      </OnLoad>
+      </OnShow>
     </Scripts>
   </Frame>
 

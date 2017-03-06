@@ -24,14 +24,10 @@ function LFG.Outgoing.Q_CREATE(eventType, to, payLoad, options)
   SendChatMessage(msg, "WHISPER", "Common", to);
 end
 
-function LFG.Outgoing.Q_RESPONSE(eventType, to, payLoad, options)
-  local tbl = LFG.Utils.Message.createResponseTbl(eventType, to, payLoad, options);
-  local msg = LFG.Utils.Message:createResponseMsg(tbl);
-  SendChatMessage(msg, "WHISPER", "Common", to);
-end
 function LFG.Outgoing.Q_REQUEST(eventType, to, payLoad, options)
   local tbl = LFG.Utils.Message.createResponseTbl(eventType, to, payLoad, options);
   local msg = LFG.Utils.Message:createResponseMsg(tbl);
+  local channelId = GetChannelName(LFG.Constants.PUBLIC_CHANNEL);
   SendChatMessage(msg, "CHANNEL", "Common", channelId);
 end
 

@@ -32,22 +32,33 @@ LFG_Settings = LFG_Settings or {
 };
 
 function LFG:updateCharacter()
+  local faction, level, minLevel;
+  faction = UnitFactionGroup("player");
+  level = 23; -- UnitLevel("player");
+  minLevel = faction == "Alliance" and 17 or 13
   LFG_Settings.character = {
     race = UnitRace("player") ,
     class =  UnitClass("player"),
-    faction = UnitFactionGroup("player"),
-    level = 23,--UnitLevel("player"),
-    name = UnitName("player") ,
+    faction = faction,
+    level = 23,--level,
+    name = UnitName("player"),
+    isValid = level >= minLevel;
   };
 end
 
 function LFG:OnEvent()
 
   if ( event == "VARIABLES_LOADED") then
-    LFG.EventSelectMenu:setCurrentPage();
-    LFG.MinimapIcon.reposition();
     LFG:updateCharacter();
-    LFG:init();
+    LFG.MinimapIcon.reposition();
+    if (LFG_Settings.character.isValid) then
+      LFG.EventSelectMenu:setCurrentPage();
+      LFG:init();
+    end
+  end
+
+  if (not LFG_Settings.character.isValid) then
+    return false;
   end
 
   if ( event == "CHAT_MSG_CHANNEL" or event == "CHAT_MSG_WHISPER") then
@@ -55,10 +66,6 @@ function LFG:OnEvent()
   end
 
   if ( event == "PARTY_MEMBERS_CHANGED") then
-  end
-
-  if ( event == "FRIENDLIST_UPDATE") then
-    LFG.QueueScrollFrames.checkForNewQueues();
   end
 
 end
@@ -79,7 +86,6 @@ function LFG:init()
 end
 
 function LFG:bindEvents()
-  self:RegisterEvent("FRIENDLIST_UPDATE");
   self:RegisterEvent("CHAT_MSG_CHANNEL");
   self:RegisterEvent("CHAT_MSG_WHISPER");
   self:RegisterEvent("PARTY_MEMBERS_CHANGED");
@@ -93,5 +99,4 @@ LFG:bindEvents();
 -- FIX People In queue to be members - when soemone join the group it should update  the PIQ value
 
 -- todo: add a block list on events and check before returning events or accepting queus if the person is in block list.
--- todo: add filters for fatching events (E_REQUEST)
--- todo: add a E_RESPONSE, and Q_RESPONSE when user log back in
+-- todo: change button width when there are less then full screen worth of result
