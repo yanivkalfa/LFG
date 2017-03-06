@@ -163,7 +163,7 @@ end
 
 function LFG.EventScrollFrames.updateLFGEvent()
   -- 1 through 5 of our window to scroll , an index into our data calculated from the scroll offset
-  local line, index, LFGEventItemButton, LFGEventItemName, totalResults, eventList;
+  local line, index, LFGEventItemButton, LFGEventItemName, totalResults, eventList, LFGEventItemButton_EventMembersCount;
   eventList = table.filter(LFG.EventScrollFrames.eventList, filter);
   totalResults = table.getn(eventList);
 
@@ -175,6 +175,15 @@ function LFG.EventScrollFrames.updateLFGEvent()
     index = line + FauxScrollFrame_GetOffset(LFGEventScrollFrame);
     LFGEventItemName = "LFGEventItem"..line;
     LFGEventItemButton = getglobal(LFGEventItemName);
+    LFGEventItemButton_EventMembersCount = getglobal(LFGEventItemName.."EventMembersCount");
+
+    if ( totalResults > LFG.Constants.MAX_PAGE_SIZE ) then
+      LFGEventItemButton:SetWidth(297);
+      LFGEventItemButton_EventMembersCount:SetPoint("LEFT", 275, 0);
+    else
+      LFGEventItemButton:SetWidth(316);
+      LFGEventItemButton_EventMembersCount:SetPoint("LEFT", 295, 0);
+    end
 
     if (index <= totalResults) then
       LFGEventItemButton:Show();

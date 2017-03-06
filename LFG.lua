@@ -98,5 +98,9 @@ LFG:bindEvents();
 
 -- FIX People In queue to be members - when soemone join the group it should update  the PIQ value
 
+-- todo fix queue button size when queueList too small
 -- todo: add a block list on events and check before returning events or accepting queus if the person is in block list.
--- todo: change button width when there are less then full screen worth of result
+-- todo: add commend line
+-- todo: add invite / accept funtionality
+-- todo: add member count update functionality.
+-- todo: find a way to notify user when a event creator has logged of without delisting the group
