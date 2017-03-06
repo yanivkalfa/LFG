@@ -6,14 +6,13 @@ function LFG.QueueDropDownMenu.OnClick()
   local index = LFG.QueueScrollFrames.queueDropDownFocus.index;
   local queue = LFG.QueueScrollFrames.queueList[index];
 
-  if(this.arg1 == "signup") then
-    LFG.RolePicker.Show(name, index);
+  if(this.arg1 == "invite") then
+    LFG.Actions.Party.invite(name, index);
   elseif(this.arg1 == "whisperOwner") then
     LFG.Whisper.show(queue.OR);
-  elseif(this.arg1 == "cancel") then
-    LFG.Actions.Queue.cancel(name, index);
   end
 end
+
 
 function LFG.QueueDropDownMenu.Initialize()
   local index = LFG.QueueScrollFrames.queueDropDownFocus.index;
@@ -21,18 +20,18 @@ function LFG.QueueDropDownMenu.Initialize()
 
   local info = {};
   info.func = LFG.QueueDropDownMenu.OnClick;
-  if(not queue or not queue.QTE) then
-    info.text = "Sign Up";
-    info.arg1 = "signup";
+  if(not queue or not queue.INV) then
+    info.text = "Invite";
+    info.arg1 = "invite";
     UIDropDownMenu_AddButton(info);
     info.text = "Whisper Player";
     info.arg1 = "whisperOwner";
     UIDropDownMenu_AddButton(info);
   end
 
-  if(queue and queue.QTE) then
-    info.text = "Cancel";
-    info.arg1 = "cancel";
+  if(queue and queue.INV) then
+    info.text = "Whisper Player";
+    info.arg1 = "whisperOwner";
     UIDropDownMenu_AddButton(info);
   end
 end

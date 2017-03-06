@@ -13,6 +13,7 @@ LFG.EventSelectMenu = {};
 LFG.QueueScrollFrames = {};
 LFG.QueueDropDownMenu = {};
 LFG.RolePicker = {};
+LFG.PartyInvitation = {};
 LFG.Whisper = {};
 
 UIPanelWindows["LFGFrame"] = { area = "left",	pushable = 11,	whileDead = 1 };
@@ -35,7 +36,7 @@ LFG_Settings = LFG_Settings or {
 function LFG:updateCharacter()
   local faction, level, minLevel;
   faction = UnitFactionGroup("player");
-  level = 23; -- UnitLevel("player");
+  level = UnitLevel("player");
   minLevel = faction == "Alliance" and 17 or 13
   LFG_Settings.character = {
     race = UnitRace("player") ,
@@ -51,7 +52,6 @@ function LFG:OnEvent()
 
   if ( event == "VARIABLES_LOADED") then
     LFG:updateCharacter();
-    --LFG_Settings.eventBlockedUsersList = {};
     LFG.MinimapIcon.reposition();
     if (LFG_Settings.character.isValid) then
       LFG.EventSelectMenu:setCurrentPage();
@@ -68,6 +68,20 @@ function LFG:OnEvent()
   end
 
   if ( event == "PARTY_MEMBERS_CHANGED") then
+    if(LFG_Settings.event and LFG.PartyInvitation.invited) then
+      LFG_Settings.event.PIE = GetNumPartyMembers();
+      LFG.Actions.Event.update(LFG_Settings.event);
+      LFG.PartyInvitation.invited = false;
+    elseif(LFG.PartyInvitation.autoAccept) then
+      StaticPopup_Hide("PARTY_INVITE");
+      LFG.PartyInvitation.reset()
+    end
+  end
+
+  if ( event == "PARTY_INVITE_REQUEST" ) then
+    if ( LFG.PartyInvitation.autoAccept  and LFG.PartyInvitation.eventOwner == arg1 ) then
+      AcceptGroup();
+    end
   end
 
 end
@@ -81,7 +95,7 @@ end
 function LFG:init()
   if ( not self.initiated ) then
     self:initRouter();
-    --self.Utils.General.hidePrefixedMessages();
+    self.Utils.General.hidePrefixedMessages();
     self.Utils.General.joinPublicChannel();
     LFG.init = true;
   end
@@ -91,6 +105,7 @@ function LFG:bindEvents()
   self:RegisterEvent("CHAT_MSG_CHANNEL");
   self:RegisterEvent("CHAT_MSG_WHISPER");
   self:RegisterEvent("PARTY_MEMBERS_CHANGED");
+  self:RegisterEvent("PARTY_INVITE_REQUEST");
   self:RegisterEvent("VARIABLES_LOADED");
   self:SetScript("OnEvent", self.OnEvent);
   self:SetScript("OnUpdate", function()  self.MinimapIcon.updateIcon(); end);
@@ -107,8 +122,3 @@ end
 
 LFG:RegisterSlashCommands();
 LFG:bindEvents();
-
--- FIX People In queue to be members - when soemone join the group it should update  the PIQ value
-
--- todo: add invite / accept funtionality
--- todo: add member count update functionality.

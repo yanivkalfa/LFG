@@ -1,5 +1,8 @@
 LFG.Utils.String = {};
 
+local function twoDigits(number)
+  return number < 10 and '0'..number or number;
+end
 
 local function fixNounNames(qty, name)
   return qty == 1 and name or name..'s';
@@ -15,15 +18,15 @@ function LFG.Utils.String.getTimeStringForPending(diffSeconds)
   local timeString = '';
 
   if(m >= 1) then
-    timeString = m .. ":"
+    timeString = twoDigits(m) .. ":"
   else
-    timeString = "0:"
+    timeString = "00:"
   end
   
   if(s >= 1) then
-    timeString = timeString..s;
+    timeString = timeString..twoDigits(s);
   else
-    timeString = timeString.."0";
+    timeString = timeString.."00";
   end
   return timeString;
 end

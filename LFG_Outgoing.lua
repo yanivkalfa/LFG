@@ -1,12 +1,27 @@
 LFG.Outgoing = {};
 
-function LFG.Outgoing.Q_DECLINE(eventType, to, payLoad, options)
+
+function LFG.Outgoing.P_INVITE(eventType, to, payLoad, options)
   local tbl = LFG.Utils.Message.createResponseTbl(eventType, to, payLoad, options);
   local msg = LFG.Utils.Message:createResponseMsg(tbl);
   SendChatMessage(msg, "WHISPER", "Common", to);
 end
 
-function LFG.Outgoing.Q_ACCEPT(eventType, to, payLoad, options)
+function LFG.Outgoing.P_ACCEPT(eventType, to, payLoad, options)
+  local tbl = LFG.Utils.Message.createResponseTbl(eventType, to, payLoad, options);
+  local msg = LFG.Utils.Message:createResponseMsg(tbl);
+  SendChatMessage(msg, "WHISPER", "Common", to);
+end
+
+function LFG.Outgoing.P_DECLINE(eventType, to, payLoad, options)
+  local tbl = LFG.Utils.Message.createResponseTbl(eventType, to, payLoad, options);
+  local msg = LFG.Utils.Message:createResponseMsg(tbl);
+  SendChatMessage(msg, "WHISPER", "Common", to);
+end
+
+
+
+function LFG.Outgoing.Q_DECLINE(eventType, to, payLoad, options)
   local tbl = LFG.Utils.Message.createResponseTbl(eventType, to, payLoad, options);
   local msg = LFG.Utils.Message:createResponseMsg(tbl);
   SendChatMessage(msg, "WHISPER", "Common", to);
@@ -29,6 +44,7 @@ function LFG.Outgoing.Q_CREATE(eventType, to, payLoad, options)
   local msg = LFG.Utils.Message:createResponseMsg(tbl);
   SendChatMessage(msg, "WHISPER", "Common", to);
 end
+
 
 function LFG.Outgoing.Q_REQUEST(eventType, to, payLoad, options)
   local tbl = LFG.Utils.Message.createResponseTbl(eventType, to, payLoad, options);

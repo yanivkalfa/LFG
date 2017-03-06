@@ -3,8 +3,9 @@ LFG.Constants.MAX_PAGE_SIZE = 10;
 LFG.Constants.EVENT_ITEM_HEIGHT = 34;
 LFG.Constants.MAX_QUEUE_PAGE_SIZE = 10;
 LFG.Constants.QUEUE_ITEM_HEIGHT = 25;
-LFG.Constants.QUEUE_TIMEOUT = 300;
+LFG.Constants.QUEUE_TIMEOUT = 70;
 LFG.Constants.QUEUE_REQUEST_TIMEOUT = 4;
+LFG.Constants.INVITATION_TIMEOUT = 60;
 LFG.Constants.MAX_FRIENDS = 50;
 LFG.Constants.MSG_PREFIX = '__LFG__';
 LFG.Constants.PUBLIC_CHANNEL = 'LFG_PUBLIC';
@@ -19,10 +20,14 @@ LFG.Constants.EVENTS = {
   Q_REQUEST = 'Q_REQUEST', -- queue request
   Q_RESPONSE = 'Q_RESPONSE', -- queue response
   Q_CREATE = 'Q_CREATE', -- queue create
-  Q_CREATE_RES = 'Q_CREATE_RES', -- queue create
+  Q_CREATE_RES = 'Q_CREATE_RES', -- queue create response
   Q_DELETE = "Q_DELETE", -- queue delete
   Q_ACCEPT = "Q_ACCEPT", -- event accept
   Q_DECLINE = "Q_DECLINE", -- event decline
+
+  P_INVITE = "P_INVITE", -- party invite
+  P_ACCEPT = "P_ACCEPT", -- party accept
+  P_DECLINE = "P_DECLINE", -- party decline
 
 };
 LFG.Constants.FACETIONS_LIST = { H=true, A=true };

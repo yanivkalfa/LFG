@@ -7,7 +7,7 @@ function Router.new(routes)
 end
 
 function Router:route(message, sender, language, channelString, target, flags, arg7, channelNumber, channelName, arg8)
-  DEFAULT_CHAT_FRAME:AddMessage("request handle: ".. type(message));
+  --DEFAULT_CHAT_FRAME:AddMessage("request handle: ".. type(message));
   local msg = LFG.Utils.Message.parseMessage(message);
 
   if(msg and type(self.routes[msg.T]) == "function" and sender ~=  LFG_Settings.character.name) then

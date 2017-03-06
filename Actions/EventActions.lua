@@ -47,8 +47,8 @@ function LFG.Actions.Event.remind()
   end
 end
 
-function LFG.Actions.Event.update(request)
-  local event = LFG.Utils.Event.createEvent();
+function LFG.Actions.Event.update(newEvent)
+  local event = newEvent or LFG.Utils.Event.createEvent();
   LFG.Outgoing:send(LFG.Constants.EVENTS.E_UPDATE, nil, event);
   LFG_Settings.event = event;
   LFG.Tabs.select("events.viewQueues");

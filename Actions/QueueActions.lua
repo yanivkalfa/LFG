@@ -37,13 +37,6 @@ function LFG.Actions.Queue.cancel(name, event)
   LFG.Outgoing:send(LFG.Constants.EVENTS.Q_DELETE, event.OR, {});
 end
 
-function LFG.Actions.Queue.acceptQueue(name, index)
-  local queue = LFG.QueueScrollFrames.queueList[index];
-  queue.INV = true;
-  --send server cancel request
-  LFG.QueueScrollFrames.LFGQueueItemUpdateButton(name, index)
-end
-
 function LFG.Actions.Queue.delete(index)
   local queue = LFG.QueueScrollFrames.queueList[index];
 
@@ -53,4 +46,10 @@ function LFG.Actions.Queue.delete(index)
   end
   table.remove(LFG.QueueScrollFrames.queueList, index);
   LFG.QueueScrollFrames.updateLFGQueue()
+end
+
+function LFG.Actions.Queue.decline(index)
+  local queue = LFG.QueueScrollFrames.queueList[index];
+  LFG.Outgoing:send(LFG.Constants.EVENTS.Q_DECLINE, queue.OR, {});
+  LFG.Actions.Queue.delete(index);
 end

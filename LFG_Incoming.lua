@@ -1,5 +1,57 @@
 LFG.Incoming = {};
 
+
+function LFG.Incoming.P_INVITE(payload, sender, language, channelString, target, flags, arg7, channelNumber, channelName, arg8)
+
+  local foundIndex = table.findIndex(LFG.EventScrollFrames.eventList, function(index, value)
+    return sender == value.OR;
+  end);
+
+  if (foundIndex >= 1) then
+    LFG.PartyInvitation.show(LFG.EventScrollFrames.eventList[foundIndex]);
+  end
+
+end
+
+function LFG.Incoming.P_ACCEPT(payload, sender, language, channelString, target, flags, arg7, channelNumber, channelName, arg8)
+
+  local foundIndex = table.findIndex(LFG.QueueScrollFrames.queueList, function(index, value)
+    return sender == value.OR;
+  end);
+
+  local queue = LFG.QueueScrollFrames.queueList[foundIndex];
+  if (queue) then
+    if(queue.INV and queue.INV.timer) then
+      Timer.clearTimer(queue.INV.timer);
+    end
+    LFG.Actions.Queue.decline(foundIndex);
+    local numPartyMembers = GetNumPartyMembers();
+    if( numPartyMembers >= 5) then
+      ConvertToRaid();
+    end
+    InviteByName(sender);
+    LFG.PartyInvitation.invited = true;
+  end
+
+end
+
+function LFG.Incoming.P_DECLINE(payload, sender, language, channelString, target, flags, arg7, channelNumber, channelName, arg8)
+
+  local foundIndex = table.findIndex(LFG.QueueScrollFrames.queueList, function(index, value)
+    return sender == value.OR;
+  end);
+
+  local queue = LFG.QueueScrollFrames.queueList[foundIndex];
+  if (queue) then
+    if(queue.INV and queue.INV.timer) then
+      Timer.clearTimer(queue.INV.timer);
+    end
+    LFG.Actions.Queue.decline(foundIndex);
+  end
+
+end
+
+
 function LFG.Incoming.Q_DECLINE(payload, sender, language, channelString, target, flags, arg7, channelNumber, channelName, arg8)
   local foundIndex = table.findIndex(LFG.EventScrollFrames.eventList, function(index, value)
     return sender == value.OR;
@@ -10,7 +62,7 @@ function LFG.Incoming.Q_DECLINE(payload, sender, language, channelString, target
     LFG.Actions.Event.cancelQueue(nil, event);
   end
 end
-function LFG.Incoming.Q_ACCEPT(payload, sender, language, channelString, target, flags, arg7, channelNumber, channelName, arg8) end
+
 function LFG.Incoming.Q_DELETE(payload, sender, language, channelString, target, flags, arg7, channelNumber, channelName, arg8)
   if (LFG_Settings.event) then
 

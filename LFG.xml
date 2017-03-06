@@ -263,7 +263,7 @@
         <FontString name="$parentPendingText" inherits="GameFontHighlight" justifyH="LEFT" hidden="true">
           <Color r="0.12" g="1" b="0.12"/>
           <Size>
-            <AbsDimension x="90" y="15"/>
+            <AbsDimension x="100" y="15"/>
           </Size>
           <Anchors>
             <Anchor point="LEFT">
@@ -427,7 +427,7 @@
           <OnClick>
             local parent = this:GetParent();
             local parentName = parent:GetName();
-            LFG.Actions.Queue.acceptQueue(parentName, parent.queueIndex);
+            LFG.Actions.Party.invite(parentName, parent.queueIndex);
           </OnClick>
         </Scripts>
       </Button>
@@ -448,12 +448,10 @@
         <Scripts>
           <OnClick>
             local parent = this:GetParent();
-            local parentName = parent:GetName();
-            local queue = LFG.QueueScrollFrames.queueList[parent.queueIndex];
+            local parentName = parent:GetName();=
 
             if (parent.queueIndex >= 1) then
-              LFG.Actions.Queue.delete(parent.queueIndex);
-              LFG.Outgoing:send(LFG.Constants.EVENTS.Q_DECLINE, queue.OR, {});
+              LFG.Actions.Queue.decline(index);
             end
           </OnClick>
         </Scripts>
@@ -1205,7 +1203,7 @@
               </OnShow>
             </Scripts>
           </Button>
-          <EditBox name="LFGEventTitle" inherits="LFGEditBoxTemplate" letters="40">
+          <EditBox name="LFGEventTitle" inherits="LFGEditBoxTemplate" letters="40" autoFocus="true">
             <Size>
               <AbsDimension x="280" y="25"/>
             </Size>
@@ -1223,6 +1221,11 @@
                 </FontString>
               </Layer>
             </Layers>
+            <Scripts>
+              <OnTabPressed>
+                LFGEventDescription:SetFocus();
+              </OnTabPressed>
+            </Scripts>
           </EditBox>
 
           <EditBox name="LFGEventDescription" inherits="LFGEditBoxTemplate" multiline="true" letters="60">
@@ -1274,12 +1277,8 @@
                 end
               </OnSizeChanged>
               <OnTabPressed>
-                --LootLinkQuickSearch_Search(1);
+                LFGEventMinLevel:SetFocus();
               </OnTabPressed>
-              <OnEnterPressed>
-                --DEFAULT_CHAT_FRAME:AddMessage("asdf");
-                --LootLinkQuickSearch_FullSearch();
-              </OnEnterPressed>
             </Scripts>
           </EditBox>
           <EditBox name="LFGEventMinLevel" inherits="LFGEditBoxTemplate" letters="2">
@@ -1860,13 +1859,6 @@
               this:SetText(lines);
             end
           </OnSizeChanged>
-          <OnTabPressed>
-            --LootLinkQuickSearch_Search(1);
-          </OnTabPressed>
-          <OnEnterPressed>
-            --DEFAULT_CHAT_FRAME:AddMessage("asdf");
-            --LootLinkQuickSearch_FullSearch();
-          </OnEnterPressed>
         </Scripts>
       </EditBox>
       <Button name="LFGRolePickerSignUp" toplevel="true" inherits="UIPanelButtonTemplate" text="SignUp">
@@ -1905,4 +1897,93 @@
       </Button>
     </Frames>
   </Frame>
+
+  <Frame name="LFGPartyInvitation" parent="UIParent" enableMouse="true" hidden="true">
+    <Size>
+      <AbsDimension x="400" y="100"/>
+    </Size>
+    <Anchors>
+      <Anchor point="CENTER">
+        <Offset>
+          <AbsDimension x="0" y="150"/>
+        </Offset>
+      </Anchor>
+    </Anchors>
+    <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+      <BackgroundInsets>
+        <AbsInset left="4" right="4" top="4" bottom="4" />
+      </BackgroundInsets>
+      <TileSize>
+        <AbsValue val="16" />
+      </TileSize>
+      <EdgeSize>
+        <AbsValue val="16" />
+      </EdgeSize>
+    </Backdrop>
+    <Layers>
+      <Layer level="OVERLAY">
+        <FontString name="LFGPartyInvitationTitle" inherits="GameFontHighlight">
+          <Size>
+            <AbsDimension x="200" y="60"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOP">
+              <Offset>
+                <AbsDimension x="0" y="0"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button name="LFGPartyInvitationAccept" toplevel="true" inherits="UIPanelButtonTemplate" text="Accept">
+        <Size>
+          <AbsDimension x="120" y="22"/>
+        </Size>
+        <Anchors>
+          <Anchor point="CENTER" relativeTo="LFGPartyInvitation">
+            <Offset>
+              <AbsDimension x="-70" y="-25"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            LFG.PartyInvitation.accept();
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button name="LFGPartyInvitationDecline" toplevel="true" inherits="UIPanelButtonTemplate" text="Decline">
+        <Size>
+          <AbsDimension x="120" y="22"/>
+        </Size>
+        <Anchors>
+          <Anchor point="CENTER" relativeTo="LFGPartyInvitation">
+            <Offset>
+              <AbsDimension x="70" y="-25"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            LFG.PartyInvitation.decline()
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </Ui>
