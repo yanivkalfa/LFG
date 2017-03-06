@@ -38,7 +38,7 @@ function LFG.MinimapIcon:resetIcon()
   LFG_MinimapButton:SetTexture("Interface\AddOns\LFG\icons\frames\BattlenetWorking0")
 end
 
-function LFG.MinimapIcon:toggle()
+function LFG.MinimapIcon.toggle()
   if( LFGFrame:IsVisible() ) then
 		HideUIPanel(LFGFrame);
 	else

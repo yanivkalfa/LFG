@@ -96,10 +96,19 @@ function LFG:bindEvents()
   self:SetScript("OnUpdate", function()  self.MinimapIcon.updateIcon(); end);
 end
 
+function LFG:RegisterSlashCommands()
+  -- Register our slash command
+  SLASH_LFG1 = "/LFG";
+  SLASH_LFG2 = "/lfg";
+  SlashCmdList["LFG"] = function(msg)
+    LFG.MinimapIcon.toggle();
+  end
+end
+
+LFG:RegisterSlashCommands();
 LFG:bindEvents();
 
 -- FIX People In queue to be members - when soemone join the group it should update  the PIQ value
 
--- todo: add commend line
 -- todo: add invite / accept funtionality
 -- todo: add member count update functionality.

@@ -58,7 +58,7 @@
         LFG_MinimapButton_DraggingFrame:Hide();
       </OnDragStop>
       <OnClick>
-        LFG.MinimapIcon:toggle();
+        LFG.MinimapIcon.toggle();
       </OnClick>
     </Scripts>
   </Button>
@@ -703,7 +703,7 @@
         </Anchors>
         <Scripts>
           <OnClick>
-            LFG.MinimapIcon:toggle();
+            LFG.MinimapIcon.toggle();
           </OnClick>
         </Scripts>
       </Button>
