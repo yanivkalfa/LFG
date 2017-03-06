@@ -26,6 +26,18 @@ function LFG.Incoming.Q_DELETE(payload, sender, language, channelString, target,
   end
 end
 
+function LFG.Incoming.Q_CREATE_RES(payload, sender, language, channelString, target, flags, arg7, channelNumber, channelName, arg8)
+
+  local foundIndex = table.findIndex(LFG.EventScrollFrames.eventList, function(index, value)
+    return sender == value.OR;
+  end)
+
+  local event = LFG.EventScrollFrames.eventList[foundIndex];
+  if (event and event.QTE.requestTimer) then
+    Timer.clearTimer(event.QTE.requestTimer);
+  end
+end
+
 function LFG.Incoming.Q_CREATE(payload, sender, language, channelString, target, flags, arg7, channelNumber, channelName, arg8)
 
   if ( LFG_Settings.event.ML and LFG_Settings.event.ML >= 1 and LFG_Settings.event.ML > payload.LVL) then
@@ -58,6 +70,7 @@ function LFG.Incoming.Q_CREATE(payload, sender, language, channelString, target,
       end);
       local pos = table.getn(LFG.QueueScrollFrames.queueList) + 1;
       table.insert(LFG.QueueScrollFrames.queueList, pos, payload);
+      LFG.Outgoing:send(LFG.Constants.EVENTS.Q_CREATE_RES, sender, {});
       LFG.Utils.Table.sort(LFG.QueueScrollFrames.queueList, {OB = "TS"});
       LFG.QueueScrollFrames.updateLFGQueue();
     end
