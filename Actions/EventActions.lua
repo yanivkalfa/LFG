@@ -36,6 +36,7 @@ function LFG.Actions.Event.create()
   LFG.QueueScrollFrames.queueList = {};
   LFG.QueueScrollFrames.updateLFGQueue();
   LFG_Settings.event = event;
+  LFG_Settings.eventBlockedUsersList = {};
   LFG.EventScrollFrames.newEvent = true;
   LFG.Tabs.select("events.viewQueues");
 end
@@ -75,6 +76,8 @@ function LFG.Actions.Event.remove(event)
     return event.OR == value.OR;
   end)
 
+  LFG.Actions.Queue.count = LFG.Actions.Queue.count - 1;
+
   if ( foundIndex ) then
     table.remove(LFG.EventScrollFrames.eventList, foundIndex);
     LFG.EventScrollFrames.updateLFGEvent();
@@ -82,7 +85,7 @@ function LFG.Actions.Event.remove(event)
 
 end
 
-function LFG.Actions.Event.cancelQueue(name, event, hideEvent)
+function LFG.Actions.Event.cancelQueue(name, event)
 
   if( type(event) ~= "table") then
     return false;
@@ -93,12 +96,10 @@ function LFG.Actions.Event.cancelQueue(name, event, hideEvent)
   end
 
   event.QTE = nil;
-
-  if (hideEvent) then
-    event.hide = true;
-    LFG.EventScrollFrames.resetSelection(event);
-    LFG.RolePicker.reset(event);
-  end
+  event.hide = true;
+  LFG.EventScrollFrames.resetSelection(event);
+  LFG.RolePicker.reset(event);
+  LFG.Actions.Queue.count = LFG.Actions.Queue.count - 1;
 
   if (name and not hideEvent) then
     LFG.EventScrollFrames.LFGEventItemUpdateButton(name, event);

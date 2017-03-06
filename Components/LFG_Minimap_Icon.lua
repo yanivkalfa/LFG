@@ -9,7 +9,7 @@ LFG.MinimapIcon = {
 
 function LFG.MinimapIcon.updateIcon()
   
-  if(LFG.animateIcon) then
+  if(LFG.Actions.Queue.count >= 1) then
     LFG.MinimapIcon.counter = LFG.MinimapIcon.counter + arg1;
     
     if(LFG.MinimapIcon.counter >= LFG.MinimapIcon.rate) then

@@ -7,7 +7,7 @@ function LFG.Incoming.Q_DECLINE(payload, sender, language, channelString, target
 
   if (foundIndex >= 1) then
     local event = LFG.EventScrollFrames.eventList[foundIndex];
-    LFG.Actions.Event.cancelQueue(nil, event, true);
+    LFG.Actions.Event.cancelQueue(nil, event);
   end
 end
 function LFG.Incoming.Q_ACCEPT(payload, sender, language, channelString, target, flags, arg7, channelNumber, channelName, arg8) end
@@ -44,6 +44,15 @@ function LFG.Incoming.Q_CREATE(payload, sender, language, channelString, target,
   end
 
   if ( LFG_Settings.event) then
+
+    local foundBlockedUserIndex = table.findIndex(LFG_Settings.eventBlockedUsersList, function(index, username)
+      return sender == username;
+    end)
+
+    if( foundBlockedUserIndex >= 1 ) then
+      return false;
+    end
+
     local foundIndex = table.findIndex(LFG.QueueScrollFrames.queueList, function(index, value)
       return sender == value.OR;
     end);
@@ -163,6 +172,15 @@ end
 
 function LFG.Incoming.E_REQUEST(payload, sender, language, channelString, target, flags, arg7, channelNumber, channelName, arg8)
   if ( LFG_Settings.event ) then
+
+    local foundIndex = table.findIndex(LFG_Settings.eventBlockedUsersList, function(index, username)
+      return sender == username;
+    end)
+
+    if( foundIndex >= 1 ) then
+      return false;
+    end
+
     LFG.Outgoing:send(LFG.Constants.EVENTS.E_RESPONSE, sender, LFG_Settings.event);
   end
 end
