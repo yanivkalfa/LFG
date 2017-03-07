@@ -58,9 +58,9 @@ function LFG.Tabs.update()
     LFG.EventSelectMenu.selected = LFG_Settings.event.QT;
     local text =  LFG.Constants.EVENT_LIST[LFG_Settings.event.QT].name;
     LFG.EventSelectMenu.setText(text);
-    LFGEventTitle:SetText(LFG_Settings.event.TT);
-    LFGEventDescription:SetText(LFG_Settings.event.DC);
-    LFGEventMinLevel:SetText(LFG_Settings.event.ML);
+    LFGEventTitle:SetText(LFG_Settings.event.TT or "");
+    LFGEventDescription:SetText(LFG_Settings.event.DC or "");
+    LFGEventMinLevel:SetText(LFG_Settings.event.ML or "");
 
     LFGEventsView_Tab:Hide();
     LFGEventsCreate_Tab:Show();

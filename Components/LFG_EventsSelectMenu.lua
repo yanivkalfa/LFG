@@ -8,10 +8,35 @@ LFG.EventSelectMenu = {
   maxWidth = 0;
 };
 
+local function findCurrentPageFromLevel(level)
+  local faction, factionEventList, found, minLevel, eventName, totalEvents;
+  found = 0;
+  faction = LFG_Settings.character.faction == "Alliance" and "A" or "H";
+  factionEventList = LFG.Constants["EVENT_LIST_HASH_"..faction];
+  totalEvents = table.getn(factionEventList);
+
+
+  for i = 1, totalEvents do
+    eventName = factionEventList[i];
+    minLevel = LFG.Constants.EVENT_LIST[eventName].minLevel;
+
+    if ( found >= 1 and level < minLevel) then
+      return found - 5 >= 6 and found - 5 or 6;
+    end
+
+    if ( i == totalEvents ) then
+      return i - 5;
+    end
+
+    if (level >= minLevel) then
+      found = i;
+    end
+
+  end
+end
+
 function LFG.EventSelectMenu:setCurrentPage(level)
-  
-  --LFG.EventSelectMenu.minEventLevel = LFG_Settings.character.faction == "Alliance" and 17 or 13;
-  self.currentPage = level or LFG_Settings.character.level;--level or LFG_Settings.character.level;
+  self.currentPage = level or findCurrentPageFromLevel(LFG_Settings.character.level);
   self.first = self.currentPage <= 6 ;
   self.last = self.currentPage >= self.totalEvents - 6;
 end
@@ -48,24 +73,24 @@ function LFG.EventSelectMenu.setText(text)
 end
 
 function LFG.EventSelectMenu.OnClick()
-  local id, Self, prevLevel, nextLevel, checkImage, text;
+  local id, Self, prevPage, nextPage, checkImage, text;
   id = this:GetID();
   Self = LFG.EventSelectMenu;
   
   checkImage = getglobal("DropDownList1Button"..id.."Check");
   if ( this.arg1 == "prev" ) then
-    prevLevel = Self.currentPage - Self.perPage >= 6 and Self.currentPage - Self.perPage or 6;
+    prevPage = Self.currentPage - Self.perPage >= 6 and Self.currentPage - Self.perPage or 6;
     
     Self.resetSelected();
-    LFG.EventSelectMenu:setCurrentPage(prevLevel);
+    LFG.EventSelectMenu:setCurrentPage(prevPage);
     LFG.EventSelectMenu:refreshMenu()
     checkImage:SetWidth(0.1);
     checkImage:SetHeight(0.1);
   elseif( this.arg1 == "next" ) then
-    nextLevel = Self.currentPage + Self.perPage <= (Self.totalEvents-5) and Self.currentPage + Self.perPage or Self.totalEvents - 5;
+    nextPage = Self.currentPage + Self.perPage <= (Self.totalEvents-5) and Self.currentPage + Self.perPage or Self.totalEvents - 5;
     
     Self.resetSelected();
-    LFG.EventSelectMenu:setCurrentPage(nextLevel);
+    LFG.EventSelectMenu:setCurrentPage(nextPage);
     LFG.EventSelectMenu:refreshMenu()
     checkImage:SetWidth(0.1);
     checkImage:SetHeight(0.1);

@@ -129,3 +129,5 @@ end
 
 LFG:RegisterSlashCommands();
 LFG:bindEvents();
+
+-- todo: find a way to locate your "event level zone" for events select menu
