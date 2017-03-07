@@ -2,9 +2,9 @@
 <b>Looking for a group wow vanilla addon</b>
 
 ### Commends:
-```lua
+```
 /LFG or /lfg -- will toggle the LFG window
-```lua
+```
 
 ## Select Activity
 ![alt tag](https://github.com/yanivkalfa/websiteassemblyline/blob/master/select%20activity.jpg)
