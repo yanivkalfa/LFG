@@ -1,4 +1,4 @@
 # LFG
 <b>Looking for a group wow vanilla addon</b>
 
-![alt tag](websiteassemblyline/Invalid user.jpg)
+![alt tag](https://github.com/yanivkalfa/websiteassemblyline/blob/master/Invalid%20user.jpg)
