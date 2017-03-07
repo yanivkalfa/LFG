@@ -29,7 +29,8 @@ LFG_Settings = LFG_Settings or {
     class = nil,
     faction = nil,
     level = nil,
-    name = nil
+    name = nil,
+    isValid = false,
   }
 };
 
@@ -42,7 +43,7 @@ function LFG:updateCharacter()
     race = UnitRace("player") ,
     class =  UnitClass("player"),
     faction = faction,
-    level = 23,--level,
+    level = level,
     name = UnitName("player"),
     isValid = level >= minLevel;
   };
@@ -50,14 +51,14 @@ end
 
 function LFG:OnEvent()
 
-  if ( event == "VARIABLES_LOADED") then
+  if ( event == "PLAYER_ENTERING_WORLD") then
     LFG:updateCharacter();
     LFG.MinimapIcon.reposition();
     if (LFG_Settings.character.isValid) then
-      LFG.EventSelectMenu:setCurrentPage();
       LFG:init();
     end
   end
+
 
   if ( event == "PLAYER_LEVEL_UP") then
     LFG:updateCharacter();
@@ -98,10 +99,11 @@ end
 
 function LFG:init()
   if ( not self.initiated ) then
+    self.EventSelectMenu:setCurrentPage();
     self:initRouter();
     self.Utils.General.hidePrefixedMessages();
     self.Utils.General.joinPublicChannel();
-    LFG.init = true;
+    LFG.initiated = true;
   end
 end
 
@@ -111,7 +113,7 @@ function LFG:bindEvents()
   self:RegisterEvent("CHAT_MSG_WHISPER");
   self:RegisterEvent("PARTY_MEMBERS_CHANGED");
   self:RegisterEvent("PARTY_INVITE_REQUEST");
-  self:RegisterEvent("VARIABLES_LOADED");
+  self:RegisterEvent("PLAYER_ENTERING_WORLD");
   self:SetScript("OnEvent", self.OnEvent);
   self:SetScript("OnUpdate", function()  self.MinimapIcon.updateIcon(); end);
 end

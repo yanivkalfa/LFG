@@ -100,7 +100,6 @@ function LFG.QueueScrollFrames.LFGQueueItemUpdateButton(LFGQueueItemName, index)
 end
 
 function LFG.QueueScrollFrames.updateLFGQueue()
-  -- 1 through 5 of our window to scroll , an index into our data calculated from the scroll offset
   local line, index, LFGQueueItemButton, LFGQueueItemName, totalResults, LFGQueueItemButton_InviteQueue;
   totalResults = table.getn(LFG.QueueScrollFrames.queueList);
   

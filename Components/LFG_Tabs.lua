@@ -94,11 +94,12 @@ function LFG.Tabs.update()
 
     local title = LFG_Settings.event.TT or "";
     local description = LFG_Settings.event.DC or "";
-    local minLevel = LFG_Settings.event.ML or "";
+    local minLevel = LFG_Settings.event.ML
+    local minLevel = minLevel and minLevel >= 1 and " ("..minLevel..")" or "";
     local queueTo = LFG.Constants.EVENT_LIST[LFG_Settings.event.QT].name or "";
     LFGEventsViewQueuesEventTitle:SetTextHeight(15);
     LFGEventsViewQueuesEventTitle:SetText(title);
-    LFGEventsViewQueuesEventQueueToAndDescription:SetText(HIGHLIGHT_FONT_COLOR_CODE..queueTo.." ("..minLevel..")"..FONT_COLOR_CODE_CLOSE..GRAY_FONT_COLOR_CODE.." - \""..description.."\""..FONT_COLOR_CODE_CLOSE);
+    LFGEventsViewQueuesEventQueueToAndDescription:SetText(HIGHLIGHT_FONT_COLOR_CODE..queueTo..minLevel..FONT_COLOR_CODE_CLOSE..GRAY_FONT_COLOR_CODE.." - \""..description.."\""..FONT_COLOR_CODE_CLOSE);
 
 
   elseif(LFG.Tabs.active == "invalidUser") then
