@@ -58,7 +58,10 @@ function LFG.EventScrollFrames.LFGEventCreateToolTip(event)
   local toolTop = HIGHLIGHT_FONT_COLOR_CODE..title..FONT_COLOR_CODE_CLOSE.."\n";
   toolTop = toolTop..NORMAL_FONT_COLOR_CODE..queueTo..FONT_COLOR_CODE_CLOSE.."\n";
   toolTop = toolTop..GRAY_FONT_COLOR_CODE.."\""..description.."\""..FONT_COLOR_CODE_CLOSE.."\n\n";
-  toolTop = toolTop..NORMAL_FONT_COLOR_CODE.."Minimum Level Required: "..FONT_COLOR_CODE_CLOSE..HIGHLIGHT_FONT_COLOR_CODE..minLevel..FONT_COLOR_CODE_CLOSE.."\n\n";
+
+  if ( minLevel ) then
+    toolTop = toolTop..NORMAL_FONT_COLOR_CODE.."Minimum Level Required: "..FONT_COLOR_CODE_CLOSE..HIGHLIGHT_FONT_COLOR_CODE..minLevel..FONT_COLOR_CODE_CLOSE.."\n\n";
+  end
 
   toolTop = toolTop..NORMAL_FONT_COLOR_CODE.."Creator: "..FONT_COLOR_CODE_CLOSE..HIGHLIGHT_FONT_COLOR_CODE..Owner..FONT_COLOR_CODE_CLOSE.."\n";
   toolTop = toolTop..NORMAL_FONT_COLOR_CODE.."Created: "..FONT_COLOR_CODE_CLOSE..HIGHLIGHT_FONT_COLOR_CODE..LFG.Utils.String.getTimeString(timeStamp)..FONT_COLOR_CODE_CLOSE.."\n\n";
